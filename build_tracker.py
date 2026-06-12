@@ -6,27 +6,35 @@ import urllib.request
 import urllib.error
 from datetime import datetime, timezone
 
-# ── Config from environment ──────────────────────────────────────────────────
-JIRA_EMAIL    = os.environ["JIRA_EMAIL"]
-JIRA_TOKEN    = os.environ["JIRA_TOKEN"]
-JIRA_BASE_URL = os.environ["JIRA_BASE_URL"].rstrip("/")
+JIRA_EMAIL    = os.environ["JIRA_EMAIL"].strip()
+JIRA_TOKEN    = os.environ["JIRA_TOKEN"].strip()
+JIRA_BASE_URL = os.environ["JIRA_BASE_URL"].strip().rstrip("/")
 EPIC_KEY      = "CLIC-455"
 CLOUD_ID      = "081bfc9f-afc4-477c-88b0-a27e8f59130d"
+
+print(f"Email: {JIRA_EMAIL}")
+print(f"Base URL: {JIRA_BASE_URL}")
+print(f"Token length: {len(JIRA_TOKEN)}")
 
 credentials = base64.b64encode(f"{JIRA_EMAIL}:{JIRA_TOKEN}".encode()).decode()
 HEADERS = {
     "Authorization": f"Basic {credentials}",
     "Accept": "application/json",
     "Content-Type": "application/json",
-    "X-Atlassian-Token": "no-check",
 }
 
 def jira_get(path):
     url = f"https://api.atlassian.com/ex/jira/{CLOUD_ID}/rest/api/3{path}"
-    print(f"  Calling: {url}")
+    print(f"Calling: {url}")
     req = urllib.request.Request(url, headers=HEADERS)
-    with urllib.request.urlopen(req) as r:
-        return json.loads(r.read())
+    try:
+        with urllib.request.urlopen(req) as r:
+            return json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        body = e.read().decode()
+        print(f"HTTP {e.code}: {e.reason}")
+        print(f"Response body: {body}")
+        raise
 
 def fetch_tickets():
     jql = f'cf[10008] = {EPIC_KEY} ORDER BY created ASC'
@@ -35,7 +43,6 @@ def fetch_tickets():
     data = jira_get(path)
     return data.get("issues", [])
 
-# ── Comment text extraction ───────────────────────────────────────────────────
 def extract_adf(node):
     if not isinstance(node, dict):
         return ""
@@ -61,7 +68,6 @@ def clean_comment(body):
         text = text[:130].rsplit(" ", 1)[0] + "…"
     return text
 
-# ── Delivery category ─────────────────────────────────────────────────────────
 def get_delivery(status):
     s = status.lower()
     if s == "po review":                                               return "green"
@@ -70,15 +76,6 @@ def get_delivery(status):
     if s == "eng review":                                              return "blue"
     return "gray"
 
-DELIVERY_LABEL = {
-    "green":  "On track",
-    "yellow": "In progress",
-    "red":    "At risk",
-    "blue":   "Eng Review",
-    "gray":   "Not started",
-}
-
-# ── Build ticket list ─────────────────────────────────────────────────────────
 def build_tickets(issues):
     tickets = []
     for issue in issues:
@@ -87,7 +84,6 @@ def build_tickets(issues):
         itype    = f["issuetype"]["name"]
         assignee = (f.get("assignee") or {}).get("displayName", "Unassigned")
         updated  = f.get("updated", "")
-
         comments = (f.get("comment") or {}).get("comments", [])
         if comments:
             last     = comments[-1]
@@ -96,7 +92,6 @@ def build_tickets(issues):
             c_text   = clean_comment(last.get("body", ""))
         else:
             c_author = c_date = c_text = ""
-
         tickets.append({
             "key":      issue["key"],
             "type":     itype,
@@ -108,11 +103,9 @@ def build_tickets(issues):
         })
     return tickets
 
-# ── HTML template ─────────────────────────────────────────────────────────────
 def render_html(tickets, generated_at):
     tickets_js = json.dumps(tickets, ensure_ascii=False, indent=2)
     count = len(tickets)
-
     return """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,7 +133,6 @@ def render_html(tickets, generated_at):
   .page-title { font-size: 22px; font-weight: 600; letter-spacing: -.02em; line-height: 1.25; }
   .page-meta { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
   .page-meta a { color: var(--blue-text); text-decoration: none; }
-  .page-meta a:hover { text-decoration: underline; }
   .legend { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--text-secondary); }
   .legend-title { font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); margin-right: 4px; }
   .legend-item { display: flex; align-items: center; gap: 6px; }
@@ -171,7 +163,7 @@ def render_html(tickets, generated_at):
   .summary-cell { max-width: 280px; line-height: 1.45; }
   .badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
   .badge-story { background: var(--purple-bg); color: var(--purple-text); }
-  .badge-bug   { background: var(--coral-bg);  color: var(--coral-text); }
+  .badge-bug { background: var(--coral-bg); color: var(--coral-text); }
   .status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
   .status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
   .s-green  { background: var(--green-bg);  color: var(--green-text); }
@@ -256,7 +248,7 @@ def render_html(tickets, generated_at):
 </div>
 <div class="page-footer">
   Data pulled from <a href="https://akesoteam.atlassian.net/browse/CLIC-455" target="_blank">Jira · CLIC-455</a>.
-  Auto-updated daily at 8am CST via GitHub Actions.
+  Auto-updated at 8am and 4pm CST via GitHub Actions.
 </div>
 <script>
 const tickets = """ + tickets_js + """;
@@ -356,7 +348,6 @@ renderRows(tickets);
 </body>
 </html>"""
 
-# ── Main ──────────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     print("Fetching tickets from Jira...")
     issues  = fetch_tickets()
