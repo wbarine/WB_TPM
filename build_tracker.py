@@ -7,6 +7,8 @@ import urllib.error
 from datetime import datetime, timezone
 
 # ── Config from environment ──────────────────────────────────────────────────
+JIRA_EMAIL    = os.environ["JIRA_EMAIL"]
+JIRA_TOKEN    = os.environ["JIRA_TOKEN"]
 JIRA_BASE_URL = os.environ["JIRA_BASE_URL"].rstrip("/")
 EPIC_KEY      = "CLIC-455"
 CLOUD_ID      = "081bfc9f-afc4-477c-88b0-a27e8f59130d"
