@@ -20,7 +20,8 @@ HEADERS = {
 
 # ── Jira helpers ─────────────────────────────────────────────────────────────
 def jira_get(path):
-    url = f"{JIRA_BASE_URL}/rest/api/3{path}"
+    url = f"{JIRA_BASE_URL}/rest/api/2{path}"
+    print(f"  Calling: {url}")
     req = urllib.request.Request(url, headers=HEADERS)
     with urllib.request.urlopen(req) as r:
         return json.loads(r.read())
