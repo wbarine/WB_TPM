@@ -285,6 +285,25 @@
     color: var(--text-muted);
     font-size: 12px;
   }
+  .comment-cell {
+    max-width: 260px;
+    font-size: 12px;
+  }
+  .comment-text {
+    display: block;
+    color: var(--text-secondary);
+    line-height: 1.45;
+    margin-bottom: 3px;
+  }
+  .comment-meta {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .comment-none {
+    color: var(--text-muted);
+  }
   .delivery-cell {
     white-space: nowrap;
     font-size: 11px;
@@ -369,6 +388,7 @@
         <th data-col="delivery">Delivery <span class="sort-arrow">↕</span></th>
         <th data-col="assignee">Assignee <span class="sort-arrow">↕</span></th>
         <th data-col="updated">Last updated <span class="sort-arrow">↕</span></th>
+        <th data-col="comment">Latest comment <span class="sort-arrow">↕</span></th>
       </tr>
     </thead>
     <tbody id="tbody"></tbody>
@@ -383,27 +403,27 @@
 
 <script>
 const tickets = [
-  {key:"CLIC-347",type:"Bug",status:"PO REVIEW",updated:"2026-06-09T06:15:00-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Patient DTP Spanish — Lack of Therapy: Absence of Rescue Inhaler in COPD"},
-  {key:"CLIC-348",type:"Bug",status:"Externally Blocked",updated:"2026-06-12T13:20:32-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Patient DTP Spanish — ADD MED: ICS (asthma with LABA)"},
-  {key:"CLIC-357",type:"Bug",status:"PO REVIEW",updated:"2026-06-11T13:39:40-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Patient DTP Spanish — ADD MED LABA/LAMA (COPD)"},
-  {key:"CLIC-384",type:"Bug",status:"TODO",updated:"2026-06-12T13:23:44-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Patient DTP Spanish — Excessive use of SABA with suboptimal asthma control (SAC)"},
-  {key:"CLIC-445",type:"Story",status:"QA Failed",updated:"2026-06-11T13:39:41-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 13 — Asthma Vaccinations: Update RSV Age Threshold ≥60→≥50 + CDC Reference"},
-  {key:"CLIC-446",type:"Story",status:"QA Failed",updated:"2026-06-11T13:39:41-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 15 — COPD Pneumococcal: Add PCV21 + GOLD Guideline Note"},
-  {key:"CLIC-447",type:"Story",status:"PO REVIEW",updated:"2026-06-11T13:39:41-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 17 — ASCVD ≥75: Verify Member Comm + Update Last Reviewed to 3/2026"},
-  {key:"CLIC-448",type:"Story",status:"QA Failed",updated:"2026-06-11T13:07:06-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 23 — Pneumococcal Vaccination: Age 65→50, PCV21, CDC 2025 References"},
-  {key:"CLIC-449",type:"Story",status:"Internally Blocked",updated:"2026-06-12T13:15:58-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 58 — Excessive SABA: Add GINA 2023 as Second Member Comm Reference"},
-  {key:"CLIC-450",type:"Story",status:"QA Failed",updated:"2026-06-11T14:26:22-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 77 — Therapeutic Alternative: Remove Coverage Gap Language from Provider Fax"},
-  {key:"CLIC-451",type:"Story",status:"PO REVIEW",updated:"2026-06-11T13:39:40-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 78 — Generic Substitution: Remove Coverage Gap Language from Provider Fax"},
-  {key:"CLIC-452",type:"Story",status:"QA Failed",updated:"2026-06-12T14:13:04-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 96 — RSV Vaccination: Age 50–74 SDM + Universal ≥75 + 2025 CDC Reference"},
-  {key:"CLIC-453",type:"Story",status:"QA in Progress",updated:"2026-06-12T08:38:27-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] Item 118 (NEW) — Anticholinergic Polypharmacy: Insert New DB Row + Provider Statement"},
-  {key:"CLIC-454",type:"Story",status:"QA",updated:"2026-06-12T14:12:27-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] Item 119 (NEW) — CNS Active Polypharmacy: Insert New DB Row + Provider Statement"},
-  {key:"CLIC-459",type:"Story",status:"ENG REVIEW",updated:"2026-06-09T13:26:11-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Patient DTP Spanish — Fix Localization for \"Filled On\" and \"Days Supply\" Elements"},
-  {key:"CLIC-497",type:"Story",status:"QA Failed",updated:"2026-06-10T12:18:11-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Centene | PCR-076 DTP Statement Updates — Colchicine (Gout) Member Statements & COPD Spanish Title Bolding (v7)"},
-  {key:"CLIC-509",type:"Story",status:"TODO",updated:"2026-06-12T14:14:41-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] Item 96 — RSV Vaccine: Add Missing Spanish Member Communication"},
-  {key:"CLIC-510",type:"Story",status:"TODO",updated:"2026-06-12T14:14:50-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] ADD MED: Statin (HIV + ASCVD) — Add Missing Spanish Member Communication"},
-  {key:"CLIC-522",type:"Bug",status:"ENG REVIEW",updated:"2026-06-12T14:05:25-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Spanish rendering different for Clara-generated recs vs searched recs from database"},
-  {key:"CLIC-525",type:"Story",status:"TODO",updated:"2026-06-12T14:16:39-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] Item 42 — Suboptimal Beta-Blocker in HF: Add Correct Spanish Member Communication"},
-  {key:"CLIC-526",type:"Story",status:"TODO",updated:"2026-06-12T14:16:27-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] Item 96 — RSV Vaccine: Align English Member Comm to 50–74 SDM + ≥75 (Remove ≥60)"},
+  {key:"CLIC-347",type:"Bug",status:"PO REVIEW",updated:"2026-06-09T06:15:00-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Patient DTP Spanish — Lack of Therapy: Absence of Rescue Inhaler in COPD",comment:{author:"Maria Nasonoff",date:"2026-05-26",text:"QA Status: Passed — Environment: RB — Title is fully bolded, no extra bullet point for header"}},
+  {key:"CLIC-348",type:"Bug",status:"Externally Blocked",updated:"2026-06-12T13:20:32-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Patient DTP Spanish — ADD MED: ICS (asthma with LABA)",comment:{author:"Sarah Kim",date:"2026-06-12",text:"@Eamonn McHugh-Roohr @Wes Benzon The Member reference (both English and Spanish) for GINA should have 2024 as the Updated date…"}},
+  {key:"CLIC-357",type:"Bug",status:"PO REVIEW",updated:"2026-06-11T13:39:40-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Patient DTP Spanish — ADD MED LABA/LAMA (COPD)",comment:{author:"Maria Nasonoff",date:"2026-05-27",text:"QA Status: Passed — Environment: RB — Title is fully bold, fixed ✓"}},
+  {key:"CLIC-384",type:"Bug",status:"TODO",updated:"2026-06-12T13:23:44-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Patient DTP Spanish — Excessive use of SABA with suboptimal asthma control (SAC)",comment:{author:"Sarah Kim",date:"2026-06-12",text:"@Eamonn McHugh-Roohr @Wes Benzon The Member reference (both English and Spanish) for GINA should have 2024 as the Updated date…"}},
+  {key:"CLIC-445",type:"Story",status:"QA Failed",updated:"2026-06-11T13:39:41-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 13 — Asthma Vaccinations: Update RSV Age Threshold ≥60→≥50 + CDC Reference",comment:{author:"Maria Nasonoff",date:"2026-06-10",text:"QA Status: Failed — Environment: RB — Test patient: 0d2b1b84-5477-4c7f-ae2a-e665e238dae4"}},
+  {key:"CLIC-446",type:"Story",status:"QA Failed",updated:"2026-06-11T13:39:41-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 15 — COPD Pneumococcal: Add PCV21 + GOLD Guideline Note",comment:{author:"Maria Nasonoff",date:"2026-06-10",text:"QA Status: — Environment: RB — Test patient: 0d2b1b84 — DTP: VACCINE: pneumococcal (COPD) Searchable…"}},
+  {key:"CLIC-447",type:"Story",status:"PO REVIEW",updated:"2026-06-11T13:39:41-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 17 — ASCVD ≥75: Verify Member Comm + Update Last Reviewed to 3/2026",comment:{author:"Maria Nasonoff",date:"2026-05-28",text:"QA Status: Passed — Environment: RB — Member DTP have Clinical Reference, not Reference…"}},
+  {key:"CLIC-448",type:"Story",status:"QA Failed",updated:"2026-06-11T13:07:06-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 23 — Pneumococcal Vaccination: Age 65→50, PCV21, CDC 2025 References",comment:{author:"Maria Nasonoff",date:"2026-06-11",text:"QA Status: Failed — Environment: RB — Test patient: 0d2b1b84 — DTP: VACCINE: pneumococcal…"}},
+  {key:"CLIC-449",type:"Story",status:"Internally Blocked",updated:"2026-06-12T13:15:58-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 58 — Excessive SABA: Add GINA 2023 as Second Member Comm Reference",comment:{author:"Sarah Kim",date:"2026-06-12",text:"@Eamonn McHugh-Roohr @Wes Benzon The Member reference (both English and Spanish) for GINA should have 2024 as the Updated date…"}},
+  {key:"CLIC-450",type:"Story",status:"QA Failed",updated:"2026-06-11T14:26:22-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 77 — Therapeutic Alternative: Remove Coverage Gap Language from Provider Fax",comment:{author:"Maria Nasonoff",date:"2026-06-11",text:"QA Status: Failed — Environment: RB — Test patient: 0d2b1b84 — DTP: PLAN: cost ineffective…"}},
+  {key:"CLIC-451",type:"Story",status:"PO REVIEW",updated:"2026-06-11T13:39:40-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 78 — Generic Substitution: Remove Coverage Gap Language from Provider Fax",comment:{author:"Mahesh Patil",date:"2026-05-31",text:"@Eamonn McHugh-Roohr QA tested this and it is working as expected. Environment: RB — Medication should be…"}},
+  {key:"CLIC-452",type:"Story",status:"QA Failed",updated:"2026-06-12T14:13:04-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 96 — RSV Vaccination: Age 50–74 SDM + Universal ≥75 + 2025 CDC Reference",comment:{author:"Maria Nasonoff",date:"2026-06-11",text:"QA Status: Failed — Environment: RB — Test patient: 0d2b1b84 — DTP: VACCINE: RSV vaccine…"}},
+  {key:"CLIC-453",type:"Story",status:"QA in Progress",updated:"2026-06-12T08:38:27-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] Item 118 (NEW) — Anticholinergic Polypharmacy: Insert New DB Row + Provider Statement",comment:{author:"John Peabody",date:"2026-05-27",text:"need to add snomed codes"}},
+  {key:"CLIC-454",type:"Story",status:"QA",updated:"2026-06-12T14:12:27-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] Item 119 (NEW) — CNS Active Polypharmacy: Insert New DB Row + Provider Statement",comment:{author:"Eamonn McHugh-Roohr",date:"2026-05-22",text:"Blocked waiting on ten new rows in airtable"}},
+  {key:"CLIC-459",type:"Story",status:"ENG REVIEW",updated:"2026-06-09T13:26:11-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Patient DTP Spanish — Fix Localization for \"Filled On\" and \"Days Supply\" Elements",comment:{author:"Mohsinoddin Shaikh",date:"2026-05-31",text:"@Eamonn McHugh-Roohr QA tested this ticket on the DEV environment and observed…"}},
+  {key:"CLIC-497",type:"Story",status:"QA Failed",updated:"2026-06-10T12:18:11-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Centene | PCR-076 DTP Statement Updates — Colchicine (Gout) Member Statements & COPD Spanish Title Bolding (v7)",comment:{author:"Mohsinoddin Shaikh",date:"2026-05-29",text:"@Eamonn McHugh-Roohr QA tested the ticket on the DEV Environment and has the…"}},
+  {key:"CLIC-509",type:"Story",status:"TODO",updated:"2026-06-12T14:14:41-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] Item 96 — RSV Vaccine: Add Missing Spanish Member Communication",comment:{author:"Sarah Kim",date:"2026-06-12",text:"@Luqmaan Baiyat @Wes Benzon Posible necesidad de vacunación: Virus Respiratorio Sincitial (VRS) El VRS es la causa de una…"}},
+  {key:"CLIC-510",type:"Story",status:"TODO",updated:"2026-06-12T14:14:50-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] ADD MED: Statin (HIV + ASCVD) — Add Missing Spanish Member Communication",comment:{author:"Sarah Kim",date:"2026-06-12",text:"@Luqmaan Baiyat @Wes Benzon Spanish translation below. VIH sin estatina: Hablamos sobre que usted tiene un historial de VIH…"}},
+  {key:"CLIC-522",type:"Bug",status:"ENG REVIEW",updated:"2026-06-12T14:05:25-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Spanish rendering different for Clara-generated recs vs searched recs from database",comment:{author:"John Peabody",date:"2026-06-12",text:"@Eamonn McHugh-Roohr all sq generated recs now have the malformed key in the verbiage translations patient id…"}},
+  {key:"CLIC-525",type:"Story",status:"TODO",updated:"2026-06-12T14:16:39-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] Item 42 — Suboptimal Beta-Blocker in HF: Add Correct Spanish Member Communication",comment:{author:"",date:"",text:""}},
+  {key:"CLIC-526",type:"Story",status:"TODO",updated:"2026-06-12T14:16:27-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] Item 96 — RSV Vaccine: Align English Member Comm to 50–74 SDM + ≥75 (Remove ≥60)",comment:{author:"Sarah Kim",date:"2026-06-12",text:"@Jennifer Kloke @Wes Benzon Confirmed that this is the English member text Centene would like: Potential Need for Vaccination…"}},
 ];
 
 // Map status → delivery category
@@ -481,6 +501,7 @@ function renderRows(data) {
       <td class="delivery-cell ${deliveryDvClass[dv]}">${deliveryLabel[dv]}</td>
       <td class="assignee-cell">${t.assignee}</td>
       <td class="updated-cell" title="${fmtDate(t.updated)}">${fmtShort(t.updated)}</td>
+      <td class="comment-cell">${t.comment && t.comment.text ? `<span class="comment-text">${t.comment.text}</span><span class="comment-meta">${t.comment.author} · ${t.comment.date}</span>` : '<span class="comment-none">—</span>'}</td>
     </tr>`;
   }).join('');
   document.getElementById('no-results').style.display = data.length === 0 ? 'block' : 'none';
@@ -544,6 +565,7 @@ document.querySelectorAll('thead th[data-col]').forEach(th => {
       else if (col === 'delivery') { va = getDelivery(a.status); vb = getDelivery(b.status); }
       else if (col === 'assignee') { va = a.assignee; vb = b.assignee; }
       else if (col === 'updated') { va = a.updated; vb = b.updated; }
+      else if (col === 'comment') { va = a.comment?.date||''; vb = b.comment?.date||''; }
       return va < vb ? -sortDir : va > vb ? sortDir : 0;
     });
     renderRows(currentData);
