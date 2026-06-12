@@ -337,7 +337,7 @@
       <span class="legend-item"><span class="legend-dot" style="background:var(--green-dot)"></span>On track</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--yellow-dot)"></span>In progress</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--red-dot)"></span>At risk</span>
-      <span class="legend-item"><span class="legend-dot" style="background:var(--blue-dot)"></span>In review</span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--blue-dot)"></span>Eng Review</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--gray-dot)"></span>Not started</span>
     </div>
   </div>
@@ -351,7 +351,7 @@
   <button class="filter-btn" data-filter="green">On track</button>
   <button class="filter-btn" data-filter="yellow">In progress</button>
   <button class="filter-btn" data-filter="red">At risk</button>
-  <button class="filter-btn" data-filter="blue">In review</button>
+  <button class="filter-btn" data-filter="blue">Eng Review</button>
   <button class="filter-btn" data-filter="gray">Not started</button>
   <button class="filter-btn" data-filter="story">Stories</button>
   <button class="filter-btn" data-filter="bug">Bugs</button>
@@ -410,13 +410,13 @@ const tickets = [
 function getDelivery(status) {
   const s = status.toLowerCase();
   if (["po review"].includes(s)) return "green";
-  if (["qa", "qa in progress", "qa failed"].includes(s)) return "yellow";
-  if (["externally blocked","internally blocked"].includes(s)) return "red";
+  if (["qa", "qa in progress"].includes(s)) return "yellow";
+  if (["qa failed","externally blocked","internally blocked","todo"].includes(s)) return "red";
   if (["eng review"].includes(s)) return "blue";
-  return "gray"; // todo, etc.
+  return "gray";
 }
 
-const deliveryLabel = { green:"On track", yellow:"In progress", red:"At risk", blue:"In review", gray:"Not started" };
+const deliveryLabel = { green:"On track", yellow:"In progress", red:"At risk", blue:"Eng Review", gray:"Not started" };
 const deliveryDotClass = { green:"dot-green", yellow:"dot-yellow", red:"dot-red", blue:"dot-blue", gray:"dot-gray" };
 const deliveryStatusClass = { green:"s-green", yellow:"s-yellow", red:"s-red", blue:"s-blue", gray:"s-gray" };
 const deliveryDvClass = { green:"dv-green", yellow:"dv-yellow", red:"dv-red", blue:"dv-blue", gray:"dv-gray" };
@@ -449,7 +449,7 @@ function renderSummary() {
     { label:'On track', val:counts.green, sub:'PO review', col:'var(--green-text)' },
     { label:'In progress', val:counts.yellow, sub:'QA / rework', col:'var(--yellow-text)' },
     { label:'At risk', val:counts.red, sub:'blocked', col:'var(--red-text)' },
-    { label:'In review', val:counts.blue, sub:'eng review', col:'var(--blue-text)' },
+    { label:'Eng Review', val:counts.blue, sub:'eng review', col:'var(--blue-text)' },
     { label:'Not started', val:counts.gray, sub:'todo', col:'var(--gray-text)' },
   ];
   document.getElementById('summary-row').innerHTML = cards.map(c =>
