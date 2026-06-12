@@ -28,7 +28,7 @@ def jira_get(path):
 
 def fetch_tickets():
     jql = f'cf[10008] = {EPIC_KEY} ORDER BY created ASC'
-    fields = "summary,status,issuetype,updated,assignee,comment,priority"
+    fields = "summary,status,issuetype,updated,assignee,comment"
     path = f"/search?jql={urllib.request.quote(jql)}&fields={fields}&maxResults=100"
     data = jira_get(path)
     return data.get("issues", [])
