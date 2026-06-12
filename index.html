@@ -411,8 +411,9 @@ function getDelivery(status) {
   const s = status.toLowerCase();
   if (["po review"].includes(s)) return "green";
   if (["qa", "qa in progress"].includes(s)) return "yellow";
-  if (["qa failed","externally blocked","internally blocked","todo"].includes(s)) return "red";
+  if (["qa failed","externally blocked","internally blocked"].includes(s)) return "red";
   if (["eng review"].includes(s)) return "blue";
+  if (["todo"].includes(s)) return "gray";
   return "gray";
 }
 
