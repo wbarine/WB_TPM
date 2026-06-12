@@ -17,6 +17,8 @@ credentials = base64.b64encode(f"{JIRA_EMAIL}:{JIRA_TOKEN}".encode()).decode()
 HEADERS = {
     "Authorization": f"Basic {credentials}",
     "Accept": "application/json",
+    "Content-Type": "application/json",
+    "X-Atlassian-Token": "no-check",
 }
 
 def jira_get(path):
