@@ -6,13 +6,8 @@
 <title>CLIC-455 — Patient DTP v7 Tracker</title>
 <style>
   :root {
-    --bg: #f7f6f2;
-    --surface: #ffffff;
-    --border: #e5e2d9;
-    --border-mid: #d0cdc4;
-    --text-primary: #1a1917;
-    --text-secondary: #5a574f;
-    --text-muted: #908c83;
+    --bg: #f7f6f2; --surface: #ffffff; --border: #e5e2d9; --border-mid: #d0cdc4;
+    --text-primary: #1a1917; --text-secondary: #5a574f; --text-muted: #908c83;
     --green-bg: #e8f5e9; --green-text: #2e6e35; --green-dot: #3a8c42;
     --yellow-bg: #fff8e1; --yellow-text: #8a6800; --yellow-dot: #c49a00;
     --red-bg: #fdecea; --red-text: #b32318; --red-dot: #c9302c;
@@ -22,324 +17,75 @@
     --coral-bg: #fef0ec; --coral-text: #a83718;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text-primary);
-    min-height: 100vh;
-    padding: 0 0 3rem;
-  }
-
-  /* ── Header ── */
-  .page-header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 1.5rem 2rem 1.25rem;
-  }
-  .header-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 1rem;
-  }
-  .epic-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--purple-bg);
-    color: var(--purple-text);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    padding: 3px 10px;
-    border-radius: 4px;
-    margin-bottom: 6px;
-  }
-  .page-title {
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.25;
-    color: var(--text-primary);
-  }
-  .page-meta {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 4px;
-  }
-  .page-meta a {
-    color: var(--blue-text);
-    text-decoration: none;
-  }
-  .page-meta a:hover { text-decoration: underline; }
-
-  /* ── Legend ── */
-  .legend {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-    font-size: 12px;
-    color: var(--text-secondary);
-  }
-  .legend-title {
-    font-weight: 600;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    margin-right: 4px;
-  }
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .legend-dot {
-    width: 9px; height: 9px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* ── Summary bar ── */
-  .summary-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 10px;
-    padding: 1.25rem 2rem;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-  }
-  .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 14px;
-  }
-  .stat-label {
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    margin-bottom: 6px;
-  }
-  .stat-val {
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
-  }
-  .stat-sub {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
-
-  /* ── Filters ── */
-  .controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 1rem 2rem;
-    flex-wrap: wrap;
-  }
-  .filter-label {
-    font-size: 12px;
-    color: var(--text-muted);
-    font-weight: 500;
-  }
-  .filter-btn {
-    font-size: 12px;
-    font-weight: 500;
-    padding: 4px 12px;
-    border-radius: 20px;
-    border: 1px solid var(--border-mid);
-    background: var(--surface);
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.12s;
-  }
+  body { background: var(--bg); color: var(--text-primary); min-height: 100vh; padding: 0 0 3rem; }
+  .page-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 1.5rem 2rem 1.25rem; }
+  .header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .epic-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--purple-bg); color: var(--purple-text); font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-bottom: 6px; }
+  .page-title { font-size: 22px; font-weight: 600; letter-spacing: -.02em; line-height: 1.25; }
+  .page-meta { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+  .page-meta a { color: var(--blue-text); text-decoration: none; }
+  .legend { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--text-secondary); }
+  .legend-title { font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); margin-right: 4px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .summary-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; padding: 1.25rem 2rem; background: var(--bg); border-bottom: 1px solid var(--border); }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+  .stat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); margin-bottom: 6px; }
+  .stat-val { font-size: 22px; font-weight: 600; letter-spacing: -.02em; }
+  .stat-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .controls { display: flex; align-items: center; gap: 10px; padding: 1rem 2rem; flex-wrap: wrap; }
+  .filter-label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+  .filter-btn { font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 20px; border: 1px solid var(--border-mid); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all .12s; }
   .filter-btn:hover { border-color: #aaa; color: var(--text-primary); }
   .filter-btn.active { background: var(--text-primary); color: #fff; border-color: var(--text-primary); }
-  .search-input {
-    margin-left: auto;
-    font-size: 13px;
-    padding: 5px 12px;
-    border: 1px solid var(--border-mid);
-    border-radius: 6px;
-    background: var(--surface);
-    color: var(--text-primary);
-    width: 220px;
-    outline: none;
-    transition: border-color 0.12s;
-  }
-  .search-input:focus { border-color: #888; }
-
-  /* ── Table ── */
-  .table-wrap {
-    padding: 0 2rem;
-    overflow-x: auto;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    font-size: 13px;
-  }
-  thead th {
-    text-align: left;
-    padding: 10px 14px;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    white-space: nowrap;
-    cursor: pointer;
-    user-select: none;
-  }
+  .search-input { margin-left: auto; font-size: 13px; padding: 5px 12px; border: 1px solid var(--border-mid); border-radius: 6px; background: var(--surface); color: var(--text-primary); width: 220px; outline: none; }
+  .table-wrap { padding: 0 2rem; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-size: 13px; }
+  thead th { text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); background: var(--bg); border-bottom: 1px solid var(--border); white-space: nowrap; cursor: pointer; user-select: none; }
   thead th:hover { color: var(--text-primary); }
-  thead th .sort-arrow { margin-left: 4px; opacity: 0.4; font-style: normal; }
+  thead th .sort-arrow { margin-left: 4px; opacity: .4; }
   thead th.sorted .sort-arrow { opacity: 1; }
-
-  tbody tr {
-    border-bottom: 1px solid var(--border);
-    transition: background 0.1s;
-  }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
   tbody tr:last-child { border-bottom: none; }
   tbody tr:hover { background: #faf9f6; }
-  tbody tr.hidden { display: none; }
-
   td { padding: 10px 14px; vertical-align: middle; }
-
-  .ticket-id-link {
-    font-weight: 600;
-    color: var(--blue-text);
-    text-decoration: none;
-    white-space: nowrap;
-  }
+  .ticket-id-link { font-weight: 600; color: var(--blue-text); text-decoration: none; white-space: nowrap; }
   .ticket-id-link:hover { text-decoration: underline; }
-
-  .summary-cell {
-    max-width: 340px;
-    line-height: 1.45;
-    color: var(--text-primary);
-  }
-
-  /* status/type badges */
-  .badge {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 4px;
-    white-space: nowrap;
-    letter-spacing: 0.02em;
-  }
-  .badge-story   { background: var(--purple-bg); color: var(--purple-text); }
-  .badge-bug     { background: var(--coral-bg);  color: var(--coral-text); }
-
-  /* status colors mapped to delivery risk */
-  .status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 3px 9px;
-    border-radius: 20px;
-    white-space: nowrap;
-  }
+  .summary-cell { max-width: 280px; line-height: 1.45; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-story { background: var(--purple-bg); color: var(--purple-text); }
+  .badge-bug { background: var(--coral-bg); color: var(--coral-text); }
+  .status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
   .status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-
   .s-green  { background: var(--green-bg);  color: var(--green-text); }
   .s-yellow { background: var(--yellow-bg); color: var(--yellow-text); }
   .s-red    { background: var(--red-bg);    color: var(--red-text); }
   .s-gray   { background: var(--gray-bg);   color: var(--gray-text); }
   .s-blue   { background: var(--blue-bg);   color: var(--blue-text); }
-
   .dot-green  { background: var(--green-dot); }
   .dot-yellow { background: var(--yellow-dot); }
   .dot-red    { background: var(--red-dot); }
   .dot-gray   { background: var(--gray-dot); }
   .dot-blue   { background: var(--blue-dot); }
-
-  .assignee-cell {
-    white-space: nowrap;
-    color: var(--text-secondary);
-    font-size: 12px;
-  }
-  .updated-cell {
-    white-space: nowrap;
-    color: var(--text-muted);
-    font-size: 12px;
-  }
-  .comment-cell {
-    max-width: 260px;
-    font-size: 12px;
-  }
-  .comment-text {
-    display: block;
-    color: var(--text-secondary);
-    line-height: 1.45;
-    margin-bottom: 3px;
-  }
-  .comment-meta {
-    display: block;
-    font-size: 11px;
-    color: var(--text-muted);
-    white-space: nowrap;
-  }
-  .comment-none {
-    color: var(--text-muted);
-  }
-  .delivery-cell {
-    white-space: nowrap;
-    font-size: 11px;
-    font-weight: 600;
-  }
+  .assignee-cell { white-space: nowrap; color: var(--text-secondary); font-size: 12px; }
+  .updated-cell  { white-space: nowrap; color: var(--text-muted); font-size: 12px; }
+  .delivery-cell { white-space: nowrap; font-size: 11px; font-weight: 600; }
   .dv-green  { color: var(--green-text); }
   .dv-yellow { color: var(--yellow-text); }
   .dv-red    { color: var(--red-text); }
   .dv-gray   { color: var(--gray-text); }
-
-  .no-results {
-    text-align: center;
-    color: var(--text-muted);
-    padding: 2.5rem;
-    font-size: 14px;
-  }
-
-  /* ── Footer ── */
-  .page-footer {
-    text-align: center;
-    font-size: 11px;
-    color: var(--text-muted);
-    padding: 2rem 2rem 0;
-  }
+  .dv-blue   { color: var(--blue-text); }
+  .comment-cell { max-width: 260px; font-size: 12px; }
+  .comment-text { display: block; color: var(--text-secondary); line-height: 1.45; margin-bottom: 3px; }
+  .comment-meta { display: block; font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+  .comment-none { color: var(--text-muted); }
+  .no-results { text-align: center; color: var(--text-muted); padding: 2.5rem; font-size: 14px; }
+  .page-footer { text-align: center; font-size: 11px; color: var(--text-muted); padding: 2rem 2rem 0; }
   .page-footer a { color: var(--blue-text); text-decoration: none; }
-
-  @media (max-width: 700px) {
-    .page-header, .summary-row, .controls, .table-wrap { padding-left: 1rem; padding-right: 1rem; }
-    .search-input { width: 100%; margin-left: 0; }
-    .page-title { font-size: 17px; }
-    .stat-val { font-size: 18px; }
-  }
 </style>
 </head>
 <body>
-
 <div class="page-header">
   <div class="header-top">
     <div>
@@ -348,7 +94,7 @@
       <div class="page-meta">
         <a href="https://akesoteam.atlassian.net/browse/CLIC-455" target="_blank">View in Jira ↗</a>
         &nbsp;·&nbsp; 21 tickets &nbsp;·&nbsp; Assignee: Wes Benzon &nbsp;·&nbsp;
-        Generated: <span id="gen-date"></span>
+        Updated: 12 Jun 2026, 11:37 PM UTC
       </div>
     </div>
     <div class="legend">
@@ -361,9 +107,7 @@
     </div>
   </div>
 </div>
-
 <div class="summary-row" id="summary-row"></div>
-
 <div class="controls">
   <span class="filter-label">Filter:</span>
   <button class="filter-btn active" data-filter="all">All</button>
@@ -376,9 +120,8 @@
   <button class="filter-btn" data-filter="bug">Bugs</button>
   <input class="search-input" id="search" placeholder="Search tickets…" type="text">
 </div>
-
 <div class="table-wrap">
-  <table id="ticket-table">
+  <table>
     <thead>
       <tr>
         <th data-col="key">Ticket <span class="sort-arrow">↕</span></th>
@@ -395,190 +138,376 @@
   </table>
   <div class="no-results" id="no-results" style="display:none">No tickets match your filter.</div>
 </div>
-
 <div class="page-footer">
-  Data pulled from <a href="https://akesoteam.atlassian.net/browse/CLIC-455" target="_blank">Jira · CLIC-455</a> on <span id="footer-date"></span>.
-  Delivery feasibility assessed against 6/18/26 PO review.
+  Data pulled from <a href="https://akesoteam.atlassian.net/browse/CLIC-455" target="_blank">Jira · CLIC-455</a>.
+  Auto-updated at 8am and 4pm CST via GitHub Actions.
 </div>
-
 <script>
 const tickets = [
-  {key:"CLIC-347",type:"Bug",status:"PO REVIEW",updated:"2026-06-09T06:15:00-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Patient DTP Spanish — Lack of Therapy: Absence of Rescue Inhaler in COPD",comment:{author:"Maria Nasonoff",date:"2026-05-26",text:"QA Status: Passed — Environment: RB — Title is fully bolded, no extra bullet point for header"}},
-  {key:"CLIC-348",type:"Bug",status:"Externally Blocked",updated:"2026-06-12T13:20:32-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Patient DTP Spanish — ADD MED: ICS (asthma with LABA)",comment:{author:"Sarah Kim",date:"2026-06-12",text:"@Eamonn McHugh-Roohr @Wes Benzon The Member reference (both English and Spanish) for GINA should have 2024 as the Updated date…"}},
-  {key:"CLIC-357",type:"Bug",status:"PO REVIEW",updated:"2026-06-11T13:39:40-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Patient DTP Spanish — ADD MED LABA/LAMA (COPD)",comment:{author:"Maria Nasonoff",date:"2026-05-27",text:"QA Status: Passed — Environment: RB — Title is fully bold, fixed ✓"}},
-  {key:"CLIC-384",type:"Bug",status:"TODO",updated:"2026-06-12T13:23:44-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Patient DTP Spanish — Excessive use of SABA with suboptimal asthma control (SAC)",comment:{author:"Sarah Kim",date:"2026-06-12",text:"@Eamonn McHugh-Roohr @Wes Benzon The Member reference (both English and Spanish) for GINA should have 2024 as the Updated date…"}},
-  {key:"CLIC-445",type:"Story",status:"QA Failed",updated:"2026-06-11T13:39:41-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 13 — Asthma Vaccinations: Update RSV Age Threshold ≥60→≥50 + CDC Reference",comment:{author:"Maria Nasonoff",date:"2026-06-10",text:"QA Status: Failed — Environment: RB — Test patient: 0d2b1b84-5477-4c7f-ae2a-e665e238dae4"}},
-  {key:"CLIC-446",type:"Story",status:"QA Failed",updated:"2026-06-11T13:39:41-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 15 — COPD Pneumococcal: Add PCV21 + GOLD Guideline Note",comment:{author:"Maria Nasonoff",date:"2026-06-10",text:"QA Status: — Environment: RB — Test patient: 0d2b1b84 — DTP: VACCINE: pneumococcal (COPD) Searchable…"}},
-  {key:"CLIC-447",type:"Story",status:"PO REVIEW",updated:"2026-06-11T13:39:41-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 17 — ASCVD ≥75: Verify Member Comm + Update Last Reviewed to 3/2026",comment:{author:"Maria Nasonoff",date:"2026-05-28",text:"QA Status: Passed — Environment: RB — Member DTP have Clinical Reference, not Reference…"}},
-  {key:"CLIC-448",type:"Story",status:"QA Failed",updated:"2026-06-11T13:07:06-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 23 — Pneumococcal Vaccination: Age 65→50, PCV21, CDC 2025 References",comment:{author:"Maria Nasonoff",date:"2026-06-11",text:"QA Status: Failed — Environment: RB — Test patient: 0d2b1b84 — DTP: VACCINE: pneumococcal…"}},
-  {key:"CLIC-449",type:"Story",status:"Internally Blocked",updated:"2026-06-12T13:15:58-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 58 — Excessive SABA: Add GINA 2023 as Second Member Comm Reference",comment:{author:"Sarah Kim",date:"2026-06-12",text:"@Eamonn McHugh-Roohr @Wes Benzon The Member reference (both English and Spanish) for GINA should have 2024 as the Updated date…"}},
-  {key:"CLIC-450",type:"Story",status:"QA Failed",updated:"2026-06-11T14:26:22-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 77 — Therapeutic Alternative: Remove Coverage Gap Language from Provider Fax",comment:{author:"Maria Nasonoff",date:"2026-06-11",text:"QA Status: Failed — Environment: RB — Test patient: 0d2b1b84 — DTP: PLAN: cost ineffective…"}},
-  {key:"CLIC-451",type:"Story",status:"PO REVIEW",updated:"2026-06-11T13:39:40-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 78 — Generic Substitution: Remove Coverage Gap Language from Provider Fax",comment:{author:"Mahesh Patil",date:"2026-05-31",text:"@Eamonn McHugh-Roohr QA tested this and it is working as expected. Environment: RB — Medication should be…"}},
-  {key:"CLIC-452",type:"Story",status:"QA Failed",updated:"2026-06-12T14:13:04-07:00",assignee:"Eamonn McHugh-Roohr",summary:"[Centene][V7] Item 96 — RSV Vaccination: Age 50–74 SDM + Universal ≥75 + 2025 CDC Reference",comment:{author:"Maria Nasonoff",date:"2026-06-11",text:"QA Status: Failed — Environment: RB — Test patient: 0d2b1b84 — DTP: VACCINE: RSV vaccine…"}},
-  {key:"CLIC-453",type:"Story",status:"QA in Progress",updated:"2026-06-12T08:38:27-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] Item 118 (NEW) — Anticholinergic Polypharmacy: Insert New DB Row + Provider Statement",comment:{author:"John Peabody",date:"2026-05-27",text:"need to add snomed codes"}},
-  {key:"CLIC-454",type:"Story",status:"QA",updated:"2026-06-12T14:12:27-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] Item 119 (NEW) — CNS Active Polypharmacy: Insert New DB Row + Provider Statement",comment:{author:"Eamonn McHugh-Roohr",date:"2026-05-22",text:"Blocked waiting on ten new rows in airtable"}},
-  {key:"CLIC-459",type:"Story",status:"ENG REVIEW",updated:"2026-06-09T13:26:11-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Patient DTP Spanish — Fix Localization for \"Filled On\" and \"Days Supply\" Elements",comment:{author:"Mohsinoddin Shaikh",date:"2026-05-31",text:"@Eamonn McHugh-Roohr QA tested this ticket on the DEV environment and observed…"}},
-  {key:"CLIC-497",type:"Story",status:"QA Failed",updated:"2026-06-10T12:18:11-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Centene | PCR-076 DTP Statement Updates — Colchicine (Gout) Member Statements & COPD Spanish Title Bolding (v7)",comment:{author:"Mohsinoddin Shaikh",date:"2026-05-29",text:"@Eamonn McHugh-Roohr QA tested the ticket on the DEV Environment and has the…"}},
-  {key:"CLIC-509",type:"Story",status:"TODO",updated:"2026-06-12T14:14:41-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] Item 96 — RSV Vaccine: Add Missing Spanish Member Communication",comment:{author:"Sarah Kim",date:"2026-06-12",text:"@Luqmaan Baiyat @Wes Benzon Posible necesidad de vacunación: Virus Respiratorio Sincitial (VRS) El VRS es la causa de una…"}},
-  {key:"CLIC-510",type:"Story",status:"TODO",updated:"2026-06-12T14:14:50-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] ADD MED: Statin (HIV + ASCVD) — Add Missing Spanish Member Communication",comment:{author:"Sarah Kim",date:"2026-06-12",text:"@Luqmaan Baiyat @Wes Benzon Spanish translation below. VIH sin estatina: Hablamos sobre que usted tiene un historial de VIH…"}},
-  {key:"CLIC-522",type:"Bug",status:"ENG REVIEW",updated:"2026-06-12T14:05:25-07:00",assignee:"Eamonn McHugh-Roohr",summary:"Spanish rendering different for Clara-generated recs vs searched recs from database",comment:{author:"John Peabody",date:"2026-06-12",text:"@Eamonn McHugh-Roohr all sq generated recs now have the malformed key in the verbiage translations patient id…"}},
-  {key:"CLIC-525",type:"Story",status:"TODO",updated:"2026-06-12T14:16:39-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] Item 42 — Suboptimal Beta-Blocker in HF: Add Correct Spanish Member Communication",comment:{author:"",date:"",text:""}},
-  {key:"CLIC-526",type:"Story",status:"TODO",updated:"2026-06-12T14:16:27-07:00",assignee:"Luqmaan Baiyat",summary:"[Centene][V7] Item 96 — RSV Vaccine: Align English Member Comm to 50–74 SDM + ≥75 (Remove ≥60)",comment:{author:"Sarah Kim",date:"2026-06-12",text:"@Jennifer Kloke @Wes Benzon Confirmed that this is the English member text Centene would like: Potential Need for Vaccination…"}},
+  {
+    "key": "CLIC-347",
+    "type": "Bug",
+    "status": "PO REVIEW",
+    "updated": "2026-06-09T06:15:00.404-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "Patient DTP Spanish [requirements issue] - Lack of Therapy - Absence of Rescue Inhaler in COPD",
+    "comment": {
+      "author": "Maria Nasonoff",
+      "date": "2026-05-26",
+      "text": "QA Status: Passed Environment: RB Verification Scenarios: Title is fully boldedThere is no extra bullet point for the header"
+    }
+  },
+  {
+    "key": "CLIC-348",
+    "type": "Bug",
+    "status": "Externally Blocked",
+    "updated": "2026-06-12T13:20:32.174-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "Patient DTP Spanish [requirements issue] -  ADD MED: ICS (asthma with LABA)",
+    "comment": {
+      "author": "Sarah Kim",
+      "date": "2026-06-12",
+      "text": "@Eamonn McHugh-Roohr @Wes Benzon The Member reference (both English and Spanish) for GINA should have 2024 as the Updated date,…"
+    }
+  },
+  {
+    "key": "CLIC-357",
+    "type": "Bug",
+    "status": "PO REVIEW",
+    "updated": "2026-06-11T13:39:40.783-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "Patient DTP Spanish [requirements issue] - ADD MED LABA/LAMA (COPD)",
+    "comment": {
+      "author": "Maria Nasonoff",
+      "date": "2026-05-27",
+      "text": "QA Status: Passed Environment: RBVerification Scenarios: Title is fully bold - Fixed"
+    }
+  },
+  {
+    "key": "CLIC-384",
+    "type": "Bug",
+    "status": "TODO",
+    "updated": "2026-06-12T13:23:44.125-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "Patient DTP Spanish [requirements issue] - Excessive use of SABA with suboptimal asthma control (SAC)",
+    "comment": {
+      "author": "Sarah Kim",
+      "date": "2026-06-12",
+      "text": "@Eamonn McHugh-Roohr @Wes Benzon The Member reference (both English and Spanish) for GINA should have 2024 as the Updated date,…"
+    }
+  },
+  {
+    "key": "CLIC-445",
+    "type": "Story",
+    "status": "QA Failed",
+    "updated": "2026-06-11T13:39:41.143-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "[Centene][V7] Item 13 — Asthma Vaccinations: Update RSV Age Threshold ≥60→≥50 + CDC Reference",
+    "comment": {
+      "author": "Maria Nasonoff",
+      "date": "2026-06-10",
+      "text": "QA Status: Failed Environment: RBTest patient: 0d2b1b84-5477-4c7f-ae2a-e665e238dae4Verification Scenarios: Scenarios that still…"
+    }
+  },
+  {
+    "key": "CLIC-446",
+    "type": "Story",
+    "status": "QA Failed",
+    "updated": "2026-06-11T13:39:41.223-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "[Centene][V7] Item 15 — COPD Pneumococcal: Add PCV21 + GOLD Guideline Note",
+    "comment": {
+      "author": "Maria Nasonoff",
+      "date": "2026-06-10",
+      "text": "QA Status: Environment: RBTest patient: 0d2b1b84-5477-4c7f-ae2a-e665e238dae4DTP: VACCINE: pneumococcal (COPD)…"
+    }
+  },
+  {
+    "key": "CLIC-447",
+    "type": "Story",
+    "status": "PO REVIEW",
+    "updated": "2026-06-11T13:39:41.297-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "[Centene][V7] Item 17 — ASCVD ≥75: Verify Member Comm + Update Last Reviewed to 3/2026",
+    "comment": {
+      "author": "Maria Nasonoff",
+      "date": "2026-05-28",
+      "text": "QA Status: Passed Environment: RBVerification Scenarios: Member DTP have Clinical Reference, not Reference (Affected DTP in…"
+    }
+  },
+  {
+    "key": "CLIC-448",
+    "type": "Story",
+    "status": "QA Failed",
+    "updated": "2026-06-11T13:07:06.334-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "[Centene][V7] Item 23 — Pneumococcal Vaccination: Age 65→50, PCV21, CDC 2025 References",
+    "comment": {
+      "author": "Maria Nasonoff",
+      "date": "2026-06-11",
+      "text": "QA Status: Failed Environment: RBTest patient: 0d2b1b84-5477-4c7f-ae2a-e665e238dae4DTP: VACCINE: pneumococcalSearchableFix needed…"
+    }
+  },
+  {
+    "key": "CLIC-449",
+    "type": "Story",
+    "status": "Internally Blocked",
+    "updated": "2026-06-12T13:15:58.220-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "[Centene][V7] Item 58 — Excessive SABA: Add GINA 2023 as Second Member Comm Reference",
+    "comment": {
+      "author": "Sarah Kim",
+      "date": "2026-06-12",
+      "text": "@Eamonn McHugh-Roohr @Wes Benzon The Member reference (both English and Spanish) for GINA should have 2024 as the Updated date,…"
+    }
+  },
+  {
+    "key": "CLIC-450",
+    "type": "Story",
+    "status": "QA Failed",
+    "updated": "2026-06-11T14:26:22.498-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "[Centene][V7] Item 77 — Therapeutic Alternative: Remove Coverage Gap Language from Provider Fax",
+    "comment": {
+      "author": "Maria Nasonoff",
+      "date": "2026-06-11",
+      "text": "QA Status: Failed Environment: RBTest patient: 0d2b1b84-5477-4c7f-ae2a-e665e238dae4DTP: PLAN: cost ineffective agent…"
+    }
+  },
+  {
+    "key": "CLIC-451",
+    "type": "Story",
+    "status": "PO REVIEW",
+    "updated": "2026-06-11T13:39:40.977-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "[Centene][V7] Item 78 — Generic Substitution: Remove Coverage Gap Language from Provider Fax",
+    "comment": {
+      "author": "Mahesh Patil",
+      "date": "2026-05-31",
+      "text": "@Eamonn McHugh-Roohr QA tested this and it is working as expected.Environment: RBVerification Scenarios:Medication should be…"
+    }
+  },
+  {
+    "key": "CLIC-452",
+    "type": "Story",
+    "status": "QA Failed",
+    "updated": "2026-06-12T14:13:04.390-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "[Centene][V7] Item 96 — RSV Vaccination: Age 50–74 SDM + Universal ≥75 + 2025 CDC Reference",
+    "comment": {
+      "author": "Maria Nasonoff",
+      "date": "2026-06-11",
+      "text": "QA Status: Failed Environment: RBTest patient: 0d2b1b84-5477-4c7f-ae2a-e665e238dae4DTP: VACCINE: RSV vaccineSearchableFix needed…"
+    }
+  },
+  {
+    "key": "CLIC-453",
+    "type": "Story",
+    "status": "QA in Progress",
+    "updated": "2026-06-12T08:38:27.168-0700",
+    "assignee": "Luqmaan Baiyat",
+    "summary": "[Centene][V7] Item 118 (NEW) — Anticholinergic Polypharmacy: Insert New DB Row + Provider Statement",
+    "comment": {
+      "author": "John Peabody",
+      "date": "2026-05-27",
+      "text": "need to add snomed codes"
+    }
+  },
+  {
+    "key": "CLIC-454",
+    "type": "Story",
+    "status": "QA",
+    "updated": "2026-06-12T14:12:27.583-0700",
+    "assignee": "Luqmaan Baiyat",
+    "summary": "[Centene][V7] Item 119 (NEW) — CNS Active Polypharmacy: Insert New DB Row + Provider Statement",
+    "comment": {
+      "author": "Eamonn McHugh-Roohr",
+      "date": "2026-05-22",
+      "text": "Blocked waiting on ten new rows in airtable"
+    }
+  },
+  {
+    "key": "CLIC-459",
+    "type": "Story",
+    "status": "ENG REVIEW",
+    "updated": "2026-06-09T13:26:11.985-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "Patient DTP Spanish - Fix Localization for \"Filled On\" and \"Days Supply\" Elements",
+    "comment": {
+      "author": "Mohsinoddin Shaikh",
+      "date": "2026-05-31",
+      "text": "@Eamonn McHugh-Roohr QA tested this ticket on the DEV environment and observed that the functionality is not working as expected.…"
+    }
+  },
+  {
+    "key": "CLIC-497",
+    "type": "Story",
+    "status": "QA Failed",
+    "updated": "2026-06-10T12:18:11.675-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "Centene | PCR-076 DTP Statement Updates - Colchicine (Gout) Member Statements & COPD Spanish Title Bolding (v7)",
+    "comment": {
+      "author": "Mohsinoddin Shaikh",
+      "date": "2026-05-29",
+      "text": "@Eamonn McHugh-Roohr QA tested the ticket on the DEV Environment and has the following observations:Patient Id:…"
+    }
+  },
+  {
+    "key": "CLIC-509",
+    "type": "Story",
+    "status": "TODO",
+    "updated": "2026-06-12T14:14:41.710-0700",
+    "assignee": "Luqmaan Baiyat",
+    "summary": "[Centene][V7] Item 96 — RSV Vaccine: Add Missing Spanish Member Communication",
+    "comment": {
+      "author": "Sarah Kim",
+      "date": "2026-06-12",
+      "text": "@Luqmaan Baiyat @Wes Benzon Posible necesidad de vacunación: Virus Respiratorio Sincitial (VRS) El VRS es la causa de una…"
+    }
+  },
+  {
+    "key": "CLIC-510",
+    "type": "Story",
+    "status": "TODO",
+    "updated": "2026-06-12T14:14:50.855-0700",
+    "assignee": "Luqmaan Baiyat",
+    "summary": "[Centene][V7] ADD MED: Statin (HIV + ASCVD) — Add Missing Spanish Member Communication",
+    "comment": {
+      "author": "Sarah Kim",
+      "date": "2026-06-12",
+      "text": "@Luqmaan Baiyat @Wes Benzon Spanish translation below.VIH sin estatina: Hablamos sobre que usted tiene un historial de VIH y no…"
+    }
+  },
+  {
+    "key": "CLIC-522",
+    "type": "Bug",
+    "status": "ENG REVIEW",
+    "updated": "2026-06-12T14:05:25.163-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "spanish rendering different for clara generated recs vs searched recs from database",
+    "comment": {
+      "author": "John Peabody",
+      "date": "2026-06-12",
+      "text": "@Eamonn McHugh-Roohr all sq generated recs now have the malformed key in the verbiage translationspatient…"
+    }
+  },
+  {
+    "key": "CLIC-525",
+    "type": "Story",
+    "status": "TODO",
+    "updated": "2026-06-12T14:16:39.743-0700",
+    "assignee": "Luqmaan Baiyat",
+    "summary": "[Centene][V7] Item 42 — Suboptimal Beta-Blocker in HF: Add Correct Spanish Member Communication",
+    "comment": {
+      "author": "",
+      "date": "",
+      "text": ""
+    }
+  },
+  {
+    "key": "CLIC-526",
+    "type": "Story",
+    "status": "TODO",
+    "updated": "2026-06-12T14:16:27.042-0700",
+    "assignee": "Luqmaan Baiyat",
+    "summary": "[Centene][V7] Item 96 — RSV Vaccine: Align English Member Comm to 50–74 SDM + ≥75 (Remove ≥60)",
+    "comment": {
+      "author": "Sarah Kim",
+      "date": "2026-06-12",
+      "text": "@Jennifer Kloke @Wes Benzon Confirmed that this is the English member text Centene would like:Potential Need for Vaccination:…"
+    }
+  }
 ];
-
-// Map status → delivery category
-function getDelivery(status) {
-  const s = status.toLowerCase();
-  if (["po review"].includes(s)) return "green";
-  if (["qa", "qa in progress"].includes(s)) return "yellow";
+function getDelivery(s) {
+  s = s.toLowerCase();
+  if (s === "po review") return "green";
+  if (["qa","qa in progress"].includes(s)) return "yellow";
   if (["qa failed","externally blocked","internally blocked"].includes(s)) return "red";
-  if (["eng review"].includes(s)) return "blue";
-  if (["todo"].includes(s)) return "gray";
+  if (s === "eng review") return "blue";
   return "gray";
 }
-
-const deliveryLabel = { green:"On track", yellow:"In progress", red:"At risk", blue:"Eng Review", gray:"Not started" };
-const deliveryDotClass = { green:"dot-green", yellow:"dot-yellow", red:"dot-red", blue:"dot-blue", gray:"dot-gray" };
-const deliveryStatusClass = { green:"s-green", yellow:"s-yellow", red:"s-red", blue:"s-blue", gray:"s-gray" };
-const deliveryDvClass = { green:"dv-green", yellow:"dv-yellow", red:"dv-red", blue:"dv-blue", gray:"dv-gray" };
-
-function fmtDate(iso) {
-  const d = new Date(iso);
-  return d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' })
-       + ' ' + d.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true });
-}
-
+const dLabel = {green:"On track",yellow:"In progress",red:"At risk",blue:"Eng Review",gray:"Not started"};
+const dDot   = {green:"dot-green",yellow:"dot-yellow",red:"dot-red",blue:"dot-blue",gray:"dot-gray"};
+const dSt    = {green:"s-green",yellow:"s-yellow",red:"s-red",blue:"s-blue",gray:"s-gray"};
+const dDv    = {green:"dv-green",yellow:"dv-yellow",red:"dv-red",blue:"dv-blue",gray:"dv-gray"};
 function fmtShort(iso) {
+  const d = new Date(iso), now = new Date(), h = (now-d)/3600000;
+  if (h<1) return 'Just now';
+  if (h<24) return Math.floor(h)+'h ago';
+  const days = Math.floor(h/24);
+  if (days===1) return 'Yesterday';
+  if (days<7) return days+'d ago';
+  return d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+}
+function fmtFull(iso) {
   const d = new Date(iso);
-  const now = new Date();
-  const diffMs = now - d;
-  const diffH = diffMs / 3600000;
-  if (diffH < 1) return 'Just now';
-  if (diffH < 24) return Math.floor(diffH) + 'h ago';
-  const diffD = Math.floor(diffH / 24);
-  if (diffD === 1) return 'Yesterday';
-  if (diffD < 7) return diffD + 'd ago';
-  return d.toLocaleDateString('en-US', { month:'short', day:'numeric' });
+  return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})
+    +' '+d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
 }
-
-// Render summary stats
 function renderSummary() {
-  const counts = { green:0, yellow:0, red:0, blue:0, gray:0 };
-  tickets.forEach(t => counts[getDelivery(t.status)]++);
-  const cards = [
-    { label:'Total tickets', val:tickets.length, sub:'in epic' },
-    { label:'On track', val:counts.green, sub:'PO review', col:'var(--green-text)' },
-    { label:'In progress', val:counts.yellow, sub:'QA / rework', col:'var(--yellow-text)' },
-    { label:'At risk', val:counts.red, sub:'blocked', col:'var(--red-text)' },
-    { label:'Eng Review', val:counts.blue, sub:'eng review', col:'var(--blue-text)' },
-    { label:'Not started', val:counts.gray, sub:'todo', col:'var(--gray-text)' },
-  ];
-  document.getElementById('summary-row').innerHTML = cards.map(c =>
-    `<div class="stat-card">
-      <div class="stat-label">${c.label}</div>
-      <div class="stat-val" ${c.col ? `style="color:${c.col}"` : ''}>${c.val}</div>
-      <div class="stat-sub">${c.sub}</div>
-    </div>`
-  ).join('');
+  const c = {green:0,yellow:0,red:0,blue:0,gray:0};
+  tickets.forEach(t => c[getDelivery(t.status)]++);
+  document.getElementById('summary-row').innerHTML = [
+    {label:'Total tickets',val:tickets.length,sub:'in epic'},
+    {label:'On track',val:c.green,sub:'PO review',col:'var(--green-text)'},
+    {label:'In progress',val:c.yellow,sub:'QA / rework',col:'var(--yellow-text)'},
+    {label:'At risk',val:c.red,sub:'blocked',col:'var(--red-text)'},
+    {label:'Eng Review',val:c.blue,sub:'eng review',col:'var(--blue-text)'},
+    {label:'Not started',val:c.gray,sub:'todo',col:'var(--gray-text)'},
+  ].map(x=>`<div class="stat-card"><div class="stat-label">${x.label}</div><div class="stat-val" ${x.col?`style="color:${x.col}"`:''}>${x.val}</div><div class="stat-sub">${x.sub}</div></div>`).join('');
 }
-
-// Render table rows
-let currentData = [...tickets];
+let cur=[...tickets], activeF='all', q='';
 function renderRows(data) {
-  const tbody = document.getElementById('tbody');
-  tbody.innerHTML = data.map(t => {
-    const dv = getDelivery(t.status);
-    return `<tr data-delivery="${dv}" data-type="${t.type.toLowerCase()}" data-key="${t.key}">
+  document.getElementById('tbody').innerHTML = data.map(t => {
+    const dv=getDelivery(t.status), c=t.comment||{};
+    return `<tr>
       <td><a class="ticket-id-link" href="https://akesoteam.atlassian.net/browse/${t.key}" target="_blank">${t.key}</a></td>
       <td><span class="badge badge-${t.type.toLowerCase()}">${t.type}</span></td>
       <td class="summary-cell">${t.summary}</td>
-      <td>
-        <span class="status-badge ${deliveryStatusClass[dv]}">
-          <span class="status-dot ${deliveryDotClass[dv]}"></span>
-          ${t.status}
-        </span>
-      </td>
-      <td class="delivery-cell ${deliveryDvClass[dv]}">${deliveryLabel[dv]}</td>
+      <td><span class="status-badge ${dSt[dv]}"><span class="status-dot ${dDot[dv]}"></span>${t.status}</span></td>
+      <td class="delivery-cell ${dDv[dv]}">${dLabel[dv]}</td>
       <td class="assignee-cell">${t.assignee}</td>
-      <td class="updated-cell" title="${fmtDate(t.updated)}">${fmtShort(t.updated)}</td>
-      <td class="comment-cell">${t.comment && t.comment.text ? `<span class="comment-text">${t.comment.text}</span><span class="comment-meta">${t.comment.author} · ${t.comment.date}</span>` : '<span class="comment-none">—</span>'}</td>
+      <td class="updated-cell" title="${fmtFull(t.updated)}">${fmtShort(t.updated)}</td>
+      <td class="comment-cell">${c.text?`<span class="comment-text">${c.text}</span><span class="comment-meta">${c.author} · ${c.date}</span>`:'<span class="comment-none">—</span>'}</td>
     </tr>`;
   }).join('');
-  document.getElementById('no-results').style.display = data.length === 0 ? 'block' : 'none';
+  document.getElementById('no-results').style.display=data.length===0?'block':'none';
 }
-
-// Filter + search logic
-let activeFilter = 'all';
-let searchQuery = '';
-
 function applyFilters() {
-  let data = tickets;
-  if (activeFilter !== 'all') {
-    if (['green','yellow','red','blue','gray'].includes(activeFilter)) {
-      data = data.filter(t => getDelivery(t.status) === activeFilter);
-    } else {
-      data = data.filter(t => t.type.toLowerCase() === activeFilter);
-    }
+  let data=tickets;
+  if (activeF!=='all') {
+    if (['green','yellow','red','blue','gray'].includes(activeF)) data=data.filter(t=>getDelivery(t.status)===activeF);
+    else data=data.filter(t=>t.type.toLowerCase()===activeF);
   }
-  if (searchQuery) {
-    const q = searchQuery.toLowerCase();
-    data = data.filter(t =>
-      t.key.toLowerCase().includes(q) ||
-      t.summary.toLowerCase().includes(q) ||
-      t.status.toLowerCase().includes(q) ||
-      t.assignee.toLowerCase().includes(q)
-    );
-  }
-  currentData = data;
-  renderRows(data);
+  if (q) { const lq=q.toLowerCase(); data=data.filter(t=>t.key.toLowerCase().includes(lq)||t.summary.toLowerCase().includes(lq)||t.status.toLowerCase().includes(lq)||t.assignee.toLowerCase().includes(lq)||(t.comment?.text||'').toLowerCase().includes(lq)); }
+  cur=data; renderRows(data);
 }
-
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeFilter = btn.dataset.filter;
-    applyFilters();
+document.querySelectorAll('.filter-btn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); activeF=b.dataset.filter; applyFilters();
+}));
+document.getElementById('search').addEventListener('input',e=>{q=e.target.value;applyFilters();});
+let sCol=null,sDir=1;
+document.querySelectorAll('thead th[data-col]').forEach(th=>th.addEventListener('click',()=>{
+  const col=th.dataset.col;
+  if(sCol===col) sDir*=-1; else {sCol=col;sDir=1;}
+  document.querySelectorAll('thead th').forEach(t=>t.classList.remove('sorted'));
+  th.classList.add('sorted');
+  th.querySelector('.sort-arrow').textContent=sDir===1?'↑':'↓';
+  cur.sort((a,b)=>{
+    let va,vb;
+    if(col==='key'){va=a.key;vb=b.key;}
+    else if(col==='type'){va=a.type;vb=b.type;}
+    else if(col==='summary'){va=a.summary;vb=b.summary;}
+    else if(col==='status'){va=a.status;vb=b.status;}
+    else if(col==='delivery'){va=getDelivery(a.status);vb=getDelivery(b.status);}
+    else if(col==='assignee'){va=a.assignee;vb=b.assignee;}
+    else if(col==='updated'){va=a.updated;vb=b.updated;}
+    else if(col==='comment'){va=a.comment?.date||'';vb=b.comment?.date||'';}
+    return va<vb?-sDir:va>vb?sDir:0;
   });
-});
-
-document.getElementById('search').addEventListener('input', e => {
-  searchQuery = e.target.value;
-  applyFilters();
-});
-
-// Sortable columns
-let sortCol = null, sortDir = 1;
-document.querySelectorAll('thead th[data-col]').forEach(th => {
-  th.addEventListener('click', () => {
-    const col = th.dataset.col;
-    if (sortCol === col) sortDir *= -1; else { sortCol = col; sortDir = 1; }
-    document.querySelectorAll('thead th').forEach(t => t.classList.remove('sorted'));
-    th.classList.add('sorted');
-    th.querySelector('.sort-arrow').textContent = sortDir === 1 ? '↑' : '↓';
-    currentData.sort((a, b) => {
-      let va, vb;
-      if (col === 'key') { va = a.key; vb = b.key; }
-      else if (col === 'type') { va = a.type; vb = b.type; }
-      else if (col === 'summary') { va = a.summary; vb = b.summary; }
-      else if (col === 'status') { va = a.status; vb = b.status; }
-      else if (col === 'delivery') { va = getDelivery(a.status); vb = getDelivery(b.status); }
-      else if (col === 'assignee') { va = a.assignee; vb = b.assignee; }
-      else if (col === 'updated') { va = a.updated; vb = b.updated; }
-      else if (col === 'comment') { va = a.comment?.date||''; vb = b.comment?.date||''; }
-      return va < vb ? -sortDir : va > vb ? sortDir : 0;
-    });
-    renderRows(currentData);
-  });
-});
-
-// Set dates
-const now = new Date();
-const fmtNow = now.toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric', hour:'numeric', minute:'2-digit' });
-document.getElementById('gen-date').textContent = fmtNow;
-document.getElementById('footer-date').textContent = fmtNow;
-
-// Init
+  renderRows(cur);
+}));
 renderSummary();
 renderRows(tickets);
 </script>
