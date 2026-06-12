@@ -1,0 +1,28 @@
+name: Update DTP Tracker
+
+on:
+  schedule:
+    - cron: '0 14 * * *'  # 8am CST = 14:00 UTC
+    - cron: '0 22 * * *'  # 4pm CST = 22:00 UTC
+  workflow_dispatch:       # also allows manual trigger
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch Jira data and rebuild tracker
+        env:
+          JIRA_TOKEN: ${{ secrets.JIRA_TOKEN }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+        run: python3 build_tracker.py
+
+      - name: Commit and push updated index.html
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --staged --quiet || git commit -m "Auto-update tracker $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push
