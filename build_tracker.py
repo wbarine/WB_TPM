@@ -7,10 +7,9 @@ import urllib.error
 from datetime import datetime, timezone
 
 # ── Config from environment ──────────────────────────────────────────────────
-JIRA_EMAIL    = os.environ["JIRA_EMAIL"]
-JIRA_TOKEN    = os.environ["JIRA_TOKEN"]
 JIRA_BASE_URL = os.environ["JIRA_BASE_URL"].rstrip("/")
 EPIC_KEY      = "CLIC-455"
+CLOUD_ID      = "081bfc9f-afc4-477c-88b0-a27e8f59130d"
 
 credentials = base64.b64encode(f"{JIRA_EMAIL}:{JIRA_TOKEN}".encode()).decode()
 HEADERS = {
@@ -18,9 +17,8 @@ HEADERS = {
     "Accept": "application/json",
 }
 
-# ── Jira helpers ─────────────────────────────────────────────────────────────
 def jira_get(path):
-    url = f"{JIRA_BASE_URL}/rest/api/2{path}"
+    url = f"https://api.atlassian.com/ex/jira/{CLOUD_ID}/rest/api/3{path}"
     print(f"  Calling: {url}")
     req = urllib.request.Request(url, headers=HEADERS)
     with urllib.request.urlopen(req) as r:
