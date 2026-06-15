@@ -93,8 +93,8 @@
       <div class="page-title">Patient DTP v7 Requirements Updates</div>
       <div class="page-meta">
         <a href="https://akesoteam.atlassian.net/browse/CLIC-455" target="_blank">View in Jira ↗</a>
-        &nbsp;·&nbsp; 21 tickets &nbsp;·&nbsp; Assignee: Wes Benzon &nbsp;·&nbsp;
-        Updated: 14 Jun 2026, 11:04 PM UTC
+        &nbsp;·&nbsp; 24 tickets &nbsp;·&nbsp; Assignee: Wes Benzon &nbsp;·&nbsp;
+        Updated: 15 Jun 2026, 6:11 PM UTC
       </div>
     </div>
     <div class="legend">
@@ -184,6 +184,19 @@ const tickets = [
     }
   },
   {
+    "key": "CLIC-380",
+    "type": "Bug",
+    "status": "QA Failed",
+    "updated": "2026-06-15T11:00:46.657-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "Patient DTP Spanish - ADD MED bowel regimen (opioid)",
+    "comment": {
+      "author": "John Peabody",
+      "date": "2026-06-09",
+      "text": "also there is duplicate medications due to the syntax {% for med in by_triggered_this_rule()%} {{ brand_drug_and_dos( [med] ) }}…"
+    }
+  },
+  {
     "key": "CLIC-384",
     "type": "Bug",
     "status": "TODO",
@@ -194,6 +207,19 @@ const tickets = [
       "author": "Sarah Kim",
       "date": "2026-06-12",
       "text": "@Eamonn McHugh-Roohr @Wes Benzon The Member reference (both English and Spanish) for GINA should have 2024 as the Updated date,…"
+    }
+  },
+  {
+    "key": "CLIC-427",
+    "type": "Bug",
+    "status": "QA Failed",
+    "updated": "2026-06-15T11:00:41.550-0700",
+    "assignee": "Kieran Garvey",
+    "summary": "Patient DRP - Drug-Drug",
+    "comment": {
+      "author": "John Peabody",
+      "date": "2026-06-10",
+      "text": "\"rec_f6cd23ed-8790-4a24-b488-ca071c778084\": { \"id\": \"f6cd23ed-8790-4a24-b488-ca071c778084\", \"drp\": \"DDI: oxycodone hcl +…"
     }
   },
   {
@@ -303,27 +329,27 @@ const tickets = [
   {
     "key": "CLIC-453",
     "type": "Story",
-    "status": "QA in Progress",
-    "updated": "2026-06-12T08:38:27.168-0700",
+    "status": "QA Failed",
+    "updated": "2026-06-14T18:06:19.891-0700",
     "assignee": "Luqmaan Baiyat",
     "summary": "[Centene][V7] Item 118 (NEW) — Anticholinergic Polypharmacy: Insert New DB Row + Provider Statement",
     "comment": {
-      "author": "John Peabody",
-      "date": "2026-05-27",
-      "text": "need to add snomed codes"
+      "author": "Maria Nasonoff",
+      "date": "2026-06-14",
+      "text": "QA Status: Failed Current implementation does not align with V7 specification document."
     }
   },
   {
     "key": "CLIC-454",
     "type": "Story",
-    "status": "QA",
-    "updated": "2026-06-12T14:12:27.583-0700",
+    "status": "QA Failed",
+    "updated": "2026-06-14T18:06:15.966-0700",
     "assignee": "Luqmaan Baiyat",
     "summary": "[Centene][V7] Item 119 (NEW) — CNS Active Polypharmacy: Insert New DB Row + Provider Statement",
     "comment": {
-      "author": "Eamonn McHugh-Roohr",
-      "date": "2026-05-22",
-      "text": "Blocked waiting on ten new rows in airtable"
+      "author": "Maria Nasonoff",
+      "date": "2026-06-14",
+      "text": "QA Status: Failed Current implementation does not align with V7 specification document."
     }
   },
   {
@@ -355,8 +381,8 @@ const tickets = [
   {
     "key": "CLIC-509",
     "type": "Story",
-    "status": "TODO",
-    "updated": "2026-06-12T14:14:41.710-0700",
+    "status": "ENG REVIEW",
+    "updated": "2026-06-15T09:19:48.542-0700",
     "assignee": "Luqmaan Baiyat",
     "summary": "[Centene][V7] Item 96 — RSV Vaccine: Add Missing Spanish Member Communication",
     "comment": {
@@ -368,8 +394,8 @@ const tickets = [
   {
     "key": "CLIC-510",
     "type": "Story",
-    "status": "TODO",
-    "updated": "2026-06-12T14:14:50.855-0700",
+    "status": "ENG REVIEW",
+    "updated": "2026-06-15T09:12:08.125-0700",
     "assignee": "Luqmaan Baiyat",
     "summary": "[Centene][V7] ADD MED: Statin (HIV + ASCVD) — Add Missing Spanish Member Communication",
     "comment": {
@@ -382,13 +408,13 @@ const tickets = [
     "key": "CLIC-522",
     "type": "Bug",
     "status": "ENG REVIEW",
-    "updated": "2026-06-12T14:05:25.163-0700",
+    "updated": "2026-06-15T09:55:58.459-0700",
     "assignee": "Eamonn McHugh-Roohr",
     "summary": "spanish rendering different for clara generated recs vs searched recs from database",
     "comment": {
       "author": "John Peabody",
-      "date": "2026-06-12",
-      "text": "@Eamonn McHugh-Roohr all sq generated recs now have the malformed key in the verbiage translationspatient…"
+      "date": "2026-06-15",
+      "text": "tested in dev. will need additional testing but initial generation through smart questions and search. changing content is…"
     }
   },
   {
@@ -415,6 +441,19 @@ const tickets = [
       "author": "Sarah Kim",
       "date": "2026-06-12",
       "text": "@Jennifer Kloke @Wes Benzon Confirmed that this is the English member text Centene would like:Potential Need for Vaccination:…"
+    }
+  },
+  {
+    "key": "CLIC-528",
+    "type": "Bug",
+    "status": "NEW",
+    "updated": "2026-06-15T11:00:57.139-0700",
+    "assignee": "Wes Benzon",
+    "summary": "Patient DTP: Blank To Do List in UAT Environment",
+    "comment": {
+      "author": "",
+      "date": "",
+      "text": ""
     }
   }
 ];
