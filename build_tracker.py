@@ -70,11 +70,9 @@ def clean_comment(body):
 
 def get_delivery(status):
     s = status.lower()
-    if s in ("released to prod", "done"):                                      return "done"
-    if s in ("po review", "ready for prod", "ready for stage"):                return "green"
-    if s in ("eng review",):                                                   return "blue"
-    if s in ("qa", "in progress", "qa in progress"):                           return "yellow"
-    if s in ("qa failed", "todo", "externally blocked", "internally blocked"): return "red"
+    if s in ("released to prod", "done"):                                                          return "done"
+    if s in ("po review", "in progress", "qa", "qa failed", "eng review", "qa in progress"):      return "green"
+    if s in ("todo",):                                                                             return "red"
     return "red"
 
 DELIVERY_LABEL = {
@@ -224,7 +222,6 @@ def render_html(tickets, generated_at):
       <span class="legend-item"><span class="legend-dot" style="background:var(--green-dot)"></span>On track</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--yellow-dot)"></span>In progress</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--red-dot)"></span>At risk</span>
-      <span class="legend-item"><span class="legend-dot" style="background:var(--blue-dot)"></span>Eng Review</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--teal-dot)"></span>Done</span>
     </div>
   </div>
@@ -237,7 +234,6 @@ def render_html(tickets, generated_at):
   <button class="filter-btn" data-filter="green">On track</button>
   <button class="filter-btn" data-filter="yellow">In progress</button>
   <button class="filter-btn" data-filter="red">At risk</button>
-  <button class="filter-btn" data-filter="blue">Eng Review</button>
   <button class="filter-btn" data-filter="story">Stories</button>
   <button class="filter-btn" data-filter="bug">Bugs</button>
   <input class="search-input" id="search" placeholder="Search tickets…" type="text">
@@ -293,7 +289,7 @@ function fmtFull(iso) {
     +' '+d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
 }
 function renderSummary() {
-  const c = {done:0,green:0,yellow:0,red:0,blue:0,gray:0};
+  const c = {done:0,green:0,yellow:0,red:0};
   tickets.forEach(t => c[getDelivery(t.status)]++);
   document.getElementById('summary-row').innerHTML = [
     {label:'Total tickets',val:tickets.length,sub:'in epic'},
@@ -301,7 +297,6 @@ function renderSummary() {
     {label:'On track',val:c.green,sub:'PO review',col:'var(--green-text)'},
     {label:'In progress',val:c.yellow,sub:'QA / rework',col:'var(--yellow-text)'},
     {label:'At risk',val:c.red,sub:'blocked / failed',col:'var(--red-text)'},
-    {label:'Eng Review',val:c.blue,sub:'eng review',col:'var(--blue-text)'},
   ].map(x=>`<div class="stat-card"><div class="stat-label">${x.label}</div><div class="stat-val" ${x.col?`style="color:${x.col}"`:''}>${x.val}</div><div class="stat-sub">${x.sub}</div></div>`).join('');
 }
 let cur=[...tickets], activeF='all', q='';
