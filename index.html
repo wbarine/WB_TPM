@@ -98,7 +98,7 @@
       <div class="page-meta">
         <a href="https://akesoteam.atlassian.net/browse/CLIC-455" target="_blank">View in Jira ↗</a>
         &nbsp;·&nbsp; 24 tickets &nbsp;·&nbsp; Assignee: Wes Benzon &nbsp;·&nbsp;
-        Updated: 15 Jun 2026, 9:33 PM UTC
+        Updated: 15 Jun 2026, 9:48 PM UTC
       </div>
     </div>
     <div class="legend">
@@ -462,7 +462,7 @@ const tickets = [
 function getDelivery(s) {
   s = s.toLowerCase();
   if (["released to prod","done"].includes(s)) return "done";
-  if (["po review","in progress","qa","qa failed","eng review","qa in progress"].includes(s)) return "green";
+  if (["po review","in progress","qa","qa failed","eng review","qa in progress","ready for prod"].includes(s)) return "green";
   if (s === "todo") return "red";
   return "red";
 }
