@@ -71,7 +71,7 @@ def clean_comment(body):
 def get_delivery(status):
     s = status.lower()
     if s in ("released to prod", "done"):                                                          return "done"
-    if s in ("po review", "in progress", "qa", "qa failed", "eng review", "qa in progress"):      return "green"
+    if s in ("po review", "in progress", "qa", "qa failed", "eng review", "qa in progress", "ready for prod"):      return "green"
     if s in ("todo",):                                                                             return "red"
     return "red"
 
@@ -265,7 +265,7 @@ const tickets = """ + tickets_js + """;
 function getDelivery(s) {
   s = s.toLowerCase();
   if (["released to prod","done"].includes(s)) return "done";
-  if (["po review","in progress","qa","qa failed","eng review","qa in progress"].includes(s)) return "green";
+  if (["po review","in progress","qa","qa failed","eng review","qa in progress","ready for prod"].includes(s)) return "green";
   if (s === "todo") return "red";
   return "red";
 }
