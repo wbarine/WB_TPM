@@ -70,12 +70,12 @@ def clean_comment(body):
 
 def get_delivery(status):
     s = status.lower()
-    if s in ("released to prod", "done"):                                          return "done"
-    if s in ("po review", "ready for prod", "ready for stage"):                    return "green"
-    if s in ("eng review",):                                                       return "blue"
-    if s in ("qa", "in progress", "qa in progress"):                               return "yellow"
-    if s in ("qa failed", "todo", "externally blocked", "internally blocked"):     return "red"
-    return "gray"
+    if s in ("released to prod", "done"):                                      return "done"
+    if s in ("po review", "ready for prod", "ready for stage"):                return "green"
+    if s in ("eng review",):                                                   return "blue"
+    if s in ("qa", "in progress", "qa in progress"):                           return "yellow"
+    if s in ("qa failed", "todo", "externally blocked", "internally blocked"): return "red"
+    return "red"
 
 DELIVERY_LABEL = {
     "done":   "Done",
@@ -225,7 +225,6 @@ def render_html(tickets, generated_at):
       <span class="legend-item"><span class="legend-dot" style="background:var(--yellow-dot)"></span>In progress</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--red-dot)"></span>At risk</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--blue-dot)"></span>Eng Review</span>
-      <span class="legend-item"><span class="legend-dot" style="background:var(--gray-dot)"></span>Not started</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--teal-dot)"></span>Done</span>
     </div>
   </div>
@@ -239,7 +238,6 @@ def render_html(tickets, generated_at):
   <button class="filter-btn" data-filter="yellow">In progress</button>
   <button class="filter-btn" data-filter="red">At risk</button>
   <button class="filter-btn" data-filter="blue">Eng Review</button>
-  <button class="filter-btn" data-filter="gray">Not started</button>
   <button class="filter-btn" data-filter="story">Stories</button>
   <button class="filter-btn" data-filter="bug">Bugs</button>
   <input class="search-input" id="search" placeholder="Search tickets…" type="text">
@@ -304,7 +302,6 @@ function renderSummary() {
     {label:'In progress',val:c.yellow,sub:'QA / rework',col:'var(--yellow-text)'},
     {label:'At risk',val:c.red,sub:'blocked / failed',col:'var(--red-text)'},
     {label:'Eng Review',val:c.blue,sub:'eng review',col:'var(--blue-text)'},
-    {label:'Not started',val:c.gray,sub:'todo',col:'var(--gray-text)'},
   ].map(x=>`<div class="stat-card"><div class="stat-label">${x.label}</div><div class="stat-val" ${x.col?`style="color:${x.col}"`:''}>${x.val}</div><div class="stat-sub">${x.sub}</div></div>`).join('');
 }
 let cur=[...tickets], activeF='all', q='';
