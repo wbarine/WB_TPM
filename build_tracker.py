@@ -264,11 +264,10 @@ def render_html(tickets, generated_at):
 const tickets = """ + tickets_js + """;
 function getDelivery(s) {
   s = s.toLowerCase();
-  if (s === "po review") return "green";
-  if (["qa","qa in progress"].includes(s)) return "yellow";
-  if (["qa failed","externally blocked","internally blocked"].includes(s)) return "red";
-  if (s === "eng review") return "blue";
-  return "gray";
+  if (["released to prod","done"].includes(s)) return "done";
+  if (["po review","in progress","qa","qa failed","eng review","qa in progress"].includes(s)) return "green";
+  if (s === "todo") return "red";
+  return "red";
 }
 const dLabel = {done:"Done",green:"On track",yellow:"In progress",red:"At risk",blue:"Eng Review",gray:"Not started"};
 const dDot   = {done:"dot-done",green:"dot-green",yellow:"dot-yellow",red:"dot-red",blue:"dot-blue",gray:"dot-gray"};
