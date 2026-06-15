@@ -70,11 +70,21 @@ def clean_comment(body):
 
 def get_delivery(status):
     s = status.lower()
-    if s == "po review":                                               return "green"
-    if s in ("qa", "qa in progress"):                                  return "yellow"
-    if s in ("qa failed", "externally blocked", "internally blocked"): return "red"
-    if s == "eng review":                                              return "blue"
+    if s in ("released to prod", "done"):                                                      return "done"
+    if s in ("po review", "ready for prod", "ready for stage"):                                return "green"
+    if s in ("eng review",):                                                                   return "blue"
+    if s in ("qa", "in progress", "qa in progress"):                                           return "yellow"
+    if s in ("qa failed", "todo", "internally blocked", "externally blocked", "new"):          return "red"
     return "gray"
+
+DELIVERY_LABEL = {
+    "done":   "Done",
+    "green":  "On track",
+    "yellow": "In progress",
+    "red":    "At risk",
+    "blue":   "Eng Review",
+    "gray":   "Not started",
+}
 
 def build_tickets(issues):
     tickets = []
@@ -123,6 +133,7 @@ def render_html(tickets, generated_at):
     --blue-bg: #e8f0fb; --blue-text: #1a4fa0; --blue-dot: #2563c7;
     --purple-bg: #f0ecfc; --purple-text: #5b3ea6;
     --coral-bg: #fef0ec; --coral-text: #a83718;
+    --teal-bg: #e6f7f5; --teal-text: #0e6e63; --teal-dot: #12887a;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -171,11 +182,13 @@ def render_html(tickets, generated_at):
   .s-red    { background: var(--red-bg);    color: var(--red-text); }
   .s-gray   { background: var(--gray-bg);   color: var(--gray-text); }
   .s-blue   { background: var(--blue-bg);   color: var(--blue-text); }
+  .s-done   { background: var(--teal-bg);   color: var(--teal-text); }
   .dot-green  { background: var(--green-dot); }
   .dot-yellow { background: var(--yellow-dot); }
   .dot-red    { background: var(--red-dot); }
   .dot-gray   { background: var(--gray-dot); }
   .dot-blue   { background: var(--blue-dot); }
+  .dot-done   { background: var(--teal-dot); }
   .assignee-cell { white-space: nowrap; color: var(--text-secondary); font-size: 12px; }
   .updated-cell  { white-space: nowrap; color: var(--text-muted); font-size: 12px; }
   .delivery-cell { white-space: nowrap; font-size: 11px; font-weight: 600; }
@@ -184,6 +197,7 @@ def render_html(tickets, generated_at):
   .dv-red    { color: var(--red-text); }
   .dv-gray   { color: var(--gray-text); }
   .dv-blue   { color: var(--blue-text); }
+  .dv-done   { color: var(--teal-text); }
   .comment-cell { max-width: 260px; font-size: 12px; }
   .comment-text { display: block; color: var(--text-secondary); line-height: 1.45; margin-bottom: 3px; }
   .comment-meta { display: block; font-size: 11px; color: var(--text-muted); white-space: nowrap; }
@@ -212,6 +226,7 @@ def render_html(tickets, generated_at):
       <span class="legend-item"><span class="legend-dot" style="background:var(--red-dot)"></span>At risk</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--blue-dot)"></span>Eng Review</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--gray-dot)"></span>Not started</span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--teal-dot)"></span>Done</span>
     </div>
   </div>
 </div>
@@ -219,6 +234,7 @@ def render_html(tickets, generated_at):
 <div class="controls">
   <span class="filter-label">Filter:</span>
   <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="done">Done</button>
   <button class="filter-btn" data-filter="green">On track</button>
   <button class="filter-btn" data-filter="yellow">In progress</button>
   <button class="filter-btn" data-filter="red">At risk</button>
@@ -260,10 +276,10 @@ function getDelivery(s) {
   if (s === "eng review") return "blue";
   return "gray";
 }
-const dLabel = {green:"On track",yellow:"In progress",red:"At risk",blue:"Eng Review",gray:"Not started"};
-const dDot   = {green:"dot-green",yellow:"dot-yellow",red:"dot-red",blue:"dot-blue",gray:"dot-gray"};
-const dSt    = {green:"s-green",yellow:"s-yellow",red:"s-red",blue:"s-blue",gray:"s-gray"};
-const dDv    = {green:"dv-green",yellow:"dv-yellow",red:"dv-red",blue:"dv-blue",gray:"dv-gray"};
+const dLabel = {done:"Done",green:"On track",yellow:"In progress",red:"At risk",blue:"Eng Review",gray:"Not started"};
+const dDot   = {done:"dot-done",green:"dot-green",yellow:"dot-yellow",red:"dot-red",blue:"dot-blue",gray:"dot-gray"};
+const dSt    = {done:"s-done",green:"s-green",yellow:"s-yellow",red:"s-red",blue:"s-blue",gray:"s-gray"};
+const dDv    = {done:"dv-done",green:"dv-green",yellow:"dv-yellow",red:"dv-red",blue:"dv-blue",gray:"dv-gray"};
 function fmtShort(iso) {
   const d = new Date(iso), now = new Date(), h = (now-d)/3600000;
   if (h<1) return 'Just now';
@@ -279,13 +295,14 @@ function fmtFull(iso) {
     +' '+d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
 }
 function renderSummary() {
-  const c = {green:0,yellow:0,red:0,blue:0,gray:0};
+  const c = {done:0,green:0,yellow:0,red:0,blue:0,gray:0};
   tickets.forEach(t => c[getDelivery(t.status)]++);
   document.getElementById('summary-row').innerHTML = [
     {label:'Total tickets',val:tickets.length,sub:'in epic'},
+    {label:'Done',val:c.done,sub:'released / done',col:'var(--teal-text)'},
     {label:'On track',val:c.green,sub:'PO review',col:'var(--green-text)'},
     {label:'In progress',val:c.yellow,sub:'QA / rework',col:'var(--yellow-text)'},
-    {label:'At risk',val:c.red,sub:'blocked',col:'var(--red-text)'},
+    {label:'At risk',val:c.red,sub:'blocked / failed',col:'var(--red-text)'},
     {label:'Eng Review',val:c.blue,sub:'eng review',col:'var(--blue-text)'},
     {label:'Not started',val:c.gray,sub:'todo',col:'var(--gray-text)'},
   ].map(x=>`<div class="stat-card"><div class="stat-label">${x.label}</div><div class="stat-val" ${x.col?`style="color:${x.col}"`:''}>${x.val}</div><div class="stat-sub">${x.sub}</div></div>`).join('');
