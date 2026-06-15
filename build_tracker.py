@@ -220,7 +220,6 @@ def render_html(tickets, generated_at):
     <div class="legend">
       <span class="legend-title">Legend</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--green-dot)"></span>On track</span>
-      <span class="legend-item"><span class="legend-dot" style="background:var(--yellow-dot)"></span>In progress</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--red-dot)"></span>At risk</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--teal-dot)"></span>Done</span>
     </div>
@@ -232,7 +231,6 @@ def render_html(tickets, generated_at):
   <button class="filter-btn active" data-filter="all">All</button>
   <button class="filter-btn" data-filter="done">Done</button>
   <button class="filter-btn" data-filter="green">On track</button>
-  <button class="filter-btn" data-filter="yellow">In progress</button>
   <button class="filter-btn" data-filter="red">At risk</button>
   <button class="filter-btn" data-filter="story">Stories</button>
   <button class="filter-btn" data-filter="bug">Bugs</button>
@@ -294,7 +292,6 @@ function renderSummary() {
     {label:'Total tickets',val:tickets.length,sub:'in epic'},
     {label:'Done',val:c.done,sub:'released / done',col:'var(--teal-text)'},
     {label:'On track',val:c.green,sub:'PO review',col:'var(--green-text)'},
-    {label:'In progress',val:c.yellow,sub:'QA / rework',col:'var(--yellow-text)'},
     {label:'At risk',val:c.red,sub:'blocked / failed',col:'var(--red-text)'},
   ].map(x=>`<div class="stat-card"><div class="stat-label">${x.label}</div><div class="stat-val" ${x.col?`style="color:${x.col}"`:''}>${x.val}</div><div class="stat-sub">${x.sub}</div></div>`).join('');
 }
