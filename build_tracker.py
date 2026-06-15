@@ -70,11 +70,11 @@ def clean_comment(body):
 
 def get_delivery(status):
     s = status.lower()
-    if s in ("released to prod", "done"):                                                      return "done"
-    if s in ("po review", "ready for prod", "ready for stage"):                                return "green"
-    if s in ("eng review",):                                                                   return "blue"
-    if s in ("qa", "in progress", "qa in progress"):                                           return "yellow"
-    if s in ("qa failed", "todo", "internally blocked", "externally blocked", "new"):          return "red"
+    if s in ("released to prod", "done"):                                          return "done"
+    if s in ("po review", "ready for prod", "ready for stage"):                    return "green"
+    if s in ("eng review",):                                                       return "blue"
+    if s in ("qa", "in progress", "qa in progress"):                               return "yellow"
+    if s in ("qa failed", "todo", "externally blocked", "internally blocked"):     return "red"
     return "gray"
 
 DELIVERY_LABEL = {
