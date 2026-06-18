@@ -70,13 +70,15 @@ def clean_comment(body):
 
 def get_delivery(status):
     s = status.lower()
-    if s in ("released to prod", "done"):                                                          return "done"
-    if s in ("po review", "in progress", "qa", "qa failed", "eng review", "qa in progress", "ready for prod"):      return "green"
-    if s in ("todo",):                                                                             return "red"
+    if s in ("released to prod", "done"):                                                   return "done"
+    if s == "ready for prod":                                                               return "rfp"
+    if s in ("po review", "in progress", "qa", "qa failed", "eng review", "qa in progress"): return "green"
+    if s in ("todo",):                                                                      return "red"
     return "red"
 
 DELIVERY_LABEL = {
     "done":   "Done",
+    "rfp":    "Ready for Prod",
     "green":  "On track",
     "yellow": "In progress",
     "red":    "At risk",
@@ -132,6 +134,7 @@ def render_html(tickets, generated_at):
     --purple-bg: #f0ecfc; --purple-text: #5b3ea6;
     --coral-bg: #fef0ec; --coral-text: #a83718;
     --teal-bg: #e6f7f5; --teal-text: #0e6e63; --teal-dot: #12887a;
+    --rfp-bg: #fff3e0; --rfp-text: #b45309; --rfp-dot: #d97706;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -181,12 +184,14 @@ def render_html(tickets, generated_at):
   .s-gray   { background: var(--gray-bg);   color: var(--gray-text); }
   .s-blue   { background: var(--blue-bg);   color: var(--blue-text); }
   .s-done   { background: var(--teal-bg);   color: var(--teal-text); }
+  .s-rfp    { background: var(--rfp-bg);    color: var(--rfp-text); }
   .dot-green  { background: var(--green-dot); }
   .dot-yellow { background: var(--yellow-dot); }
   .dot-red    { background: var(--red-dot); }
   .dot-gray   { background: var(--gray-dot); }
   .dot-blue   { background: var(--blue-dot); }
   .dot-done   { background: var(--teal-dot); }
+  .dot-rfp    { background: var(--rfp-dot); }
   .assignee-cell { white-space: nowrap; color: var(--text-secondary); font-size: 12px; }
   .updated-cell  { white-space: nowrap; color: var(--text-muted); font-size: 12px; }
   .delivery-cell { white-space: nowrap; font-size: 11px; font-weight: 600; }
@@ -196,6 +201,7 @@ def render_html(tickets, generated_at):
   .dv-gray   { color: var(--gray-text); }
   .dv-blue   { color: var(--blue-text); }
   .dv-done   { color: var(--teal-text); }
+  .dv-rfp    { color: var(--rfp-text); }
   .comment-cell { max-width: 260px; font-size: 12px; }
   .comment-text { display: block; color: var(--text-secondary); line-height: 1.45; margin-bottom: 3px; }
   .comment-meta { display: block; font-size: 11px; color: var(--text-muted); white-space: nowrap; }
@@ -220,6 +226,7 @@ def render_html(tickets, generated_at):
     <div class="legend">
       <span class="legend-title">Legend</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--green-dot)"></span>On track</span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--rfp-dot)"></span>Ready for Prod</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--red-dot)"></span>At risk</span>
       <span class="legend-item"><span class="legend-dot" style="background:var(--teal-dot)"></span>Done</span>
     </div>
@@ -230,6 +237,7 @@ def render_html(tickets, generated_at):
   <span class="filter-label">Filter:</span>
   <button class="filter-btn active" data-filter="all">All</button>
   <button class="filter-btn" data-filter="done">Done</button>
+  <button class="filter-btn" data-filter="rfp">Ready for Prod</button>
   <button class="filter-btn" data-filter="green">On track</button>
   <button class="filter-btn" data-filter="red">At risk</button>
   <button class="filter-btn" data-filter="story">Stories</button>
@@ -263,14 +271,15 @@ const tickets = """ + tickets_js + """;
 function getDelivery(s) {
   s = s.toLowerCase();
   if (["released to prod","done"].includes(s)) return "done";
-  if (["po review","in progress","qa","qa failed","eng review","qa in progress","ready for prod"].includes(s)) return "green";
+  if (s === "ready for prod") return "rfp";
+  if (["po review","in progress","qa","qa failed","eng review","qa in progress"].includes(s)) return "green";
   if (s === "todo") return "red";
   return "red";
 }
-const dLabel = {done:"Done",green:"On track",yellow:"In progress",red:"At risk",blue:"Eng Review",gray:"Not started"};
-const dDot   = {done:"dot-done",green:"dot-green",yellow:"dot-yellow",red:"dot-red",blue:"dot-blue",gray:"dot-gray"};
-const dSt    = {done:"s-done",green:"s-green",yellow:"s-yellow",red:"s-red",blue:"s-blue",gray:"s-gray"};
-const dDv    = {done:"dv-done",green:"dv-green",yellow:"dv-yellow",red:"dv-red",blue:"dv-blue",gray:"dv-gray"};
+const dLabel = {done:"Done",rfp:"Ready for Prod",green:"On track",yellow:"In progress",red:"At risk",blue:"Eng Review",gray:"Not started"};
+const dDot   = {done:"dot-done",rfp:"dot-rfp",green:"dot-green",yellow:"dot-yellow",red:"dot-red",blue:"dot-blue",gray:"dot-gray"};
+const dSt    = {done:"s-done",rfp:"s-rfp",green:"s-green",yellow:"s-yellow",red:"s-red",blue:"s-blue",gray:"s-gray"};
+const dDv    = {done:"dv-done",rfp:"dv-rfp",green:"dv-green",yellow:"dv-yellow",red:"dv-red",blue:"dv-blue",gray:"dv-gray"};
 function fmtShort(iso) {
   const d = new Date(iso), now = new Date(), h = (now-d)/3600000;
   if (h<1) return 'Just now';
@@ -286,13 +295,14 @@ function fmtFull(iso) {
     +' '+d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
 }
 function renderSummary() {
-  const c = {done:0,green:0,yellow:0,red:0};
-  tickets.forEach(t => c[getDelivery(t.status)]++);
+  const c = {done:0,rfp:0,green:0,yellow:0,red:0};
+  tickets.forEach(t => { const dv=getDelivery(t.status); if(c[dv]!==undefined) c[dv]++; else c.red++; });
   document.getElementById('summary-row').innerHTML = [
     {label:'Total tickets',val:tickets.length,sub:'in epic'},
     {label:'Done',val:c.done,sub:'released / done',col:'var(--teal-text)'},
-    {label:'On track',val:c.green,sub:'PO review',col:'var(--green-text)'},
-    {label:'At risk',val:c.red,sub:'blocked / failed',col:'var(--red-text)'},
+    {label:'Ready for Prod',val:c.rfp,sub:'awaiting release',col:'var(--rfp-text)'},
+    {label:'On track',val:c.green,sub:'in active progress',col:'var(--green-text)'},
+    {label:'At risk',val:c.red,sub:'blocked / todo',col:'var(--red-text)'},
   ].map(x=>`<div class="stat-card"><div class="stat-label">${x.label}</div><div class="stat-val" ${x.col?`style="color:${x.col}"`:''}>${x.val}</div><div class="stat-sub">${x.sub}</div></div>`).join('');
 }
 let cur=[...tickets], activeF='all', q='';
@@ -315,7 +325,7 @@ function renderRows(data) {
 function applyFilters() {
   let data=tickets;
   if (activeF!=='all') {
-    if (['green','yellow','red','blue','gray'].includes(activeF)) data=data.filter(t=>getDelivery(t.status)===activeF);
+    if (['green','yellow','red','blue','gray','rfp','done'].includes(activeF)) data=data.filter(t=>getDelivery(t.status)===activeF);
     else data=data.filter(t=>t.type.toLowerCase()===activeF);
   }
   if (q) { const lq=q.toLowerCase(); data=data.filter(t=>t.key.toLowerCase().includes(lq)||t.summary.toLowerCase().includes(lq)||t.status.toLowerCase().includes(lq)||t.assignee.toLowerCase().includes(lq)||(t.comment?.text||'').toLowerCase().includes(lq)); }
