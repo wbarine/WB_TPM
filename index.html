@@ -97,8 +97,8 @@
       <div class="page-title">Patient DTP v7 Requirements Updates</div>
       <div class="page-meta">
         <a href="https://akesoteam.atlassian.net/browse/CLIC-455" target="_blank">View in Jira ↗</a>
-        &nbsp;·&nbsp; 24 tickets &nbsp;·&nbsp; Assignee: Wes Benzon &nbsp;·&nbsp;
-        Updated: 18 Jun 2026, 6:26 PM UTC
+        &nbsp;·&nbsp; 25 tickets &nbsp;·&nbsp; Assignee: Wes Benzon &nbsp;·&nbsp;
+        Updated: 18 Jun 2026, 7:36 PM UTC
       </div>
     </div>
     <div class="legend">
@@ -160,8 +160,8 @@ const tickets = [
   {
     "key": "CLIC-348",
     "type": "Bug",
-    "status": "QA Failed",
-    "updated": "2026-06-18T10:04:47.223-0700",
+    "status": "QA",
+    "updated": "2026-06-18T12:21:58.139-0700",
     "assignee": "Eamonn McHugh-Roohr",
     "summary": "Patient DTP Spanish [requirements issue] -  ADD MED: ICS (asthma with LABA)",
     "comment": {
@@ -184,16 +184,29 @@ const tickets = [
     }
   },
   {
+    "key": "CLIC-363",
+    "type": "Bug",
+    "status": "PO REVIEW",
+    "updated": "2026-06-18T12:35:13.585-0700",
+    "assignee": "Eamonn McHugh-Roohr",
+    "summary": "Patient DTP Spanish - Excessive use of SABA with suboptimal asthma control (SAC)",
+    "comment": {
+      "author": "Maria Nasonoff",
+      "date": "2026-06-18",
+      "text": "DTP - Searchable (Regression) would be validated in the ticket NOTE: Fix for medication line in Spanish letter would be addressed…"
+    }
+  },
+  {
     "key": "CLIC-380",
     "type": "Bug",
     "status": "QA Failed",
-    "updated": "2026-06-18T08:06:10.206-0700",
+    "updated": "2026-06-18T12:04:46.998-0700",
     "assignee": "Eamonn McHugh-Roohr",
     "summary": "Patient DTP Spanish - ADD MED bowel regimen (opioid)",
     "comment": {
-      "author": "John Peabody",
-      "date": "2026-06-09",
-      "text": "also there is duplicate medications due to the syntax {% for med in by_triggered_this_rule()%} {{ brand_drug_and_dos( [med] ) }}…"
+      "author": "Eamonn McHugh-Roohr",
+      "date": "2026-06-18",
+      "text": "@Maria Nasonoff might be worth a re-check"
     }
   },
   {
@@ -264,8 +277,8 @@ const tickets = [
   {
     "key": "CLIC-448",
     "type": "Story",
-    "status": "QA Failed",
-    "updated": "2026-06-18T08:06:10.229-0700",
+    "status": "QA",
+    "updated": "2026-06-18T12:21:42.667-0700",
     "assignee": "Eamonn McHugh-Roohr",
     "summary": "[Centene][V7] Item 23 — Pneumococcal Vaccination: Age 65→50, PCV21, CDC 2025 References",
     "comment": {
@@ -277,8 +290,8 @@ const tickets = [
   {
     "key": "CLIC-449",
     "type": "Story",
-    "status": "QA Failed",
-    "updated": "2026-06-18T08:06:10.558-0700",
+    "status": "PO REVIEW",
+    "updated": "2026-06-18T11:35:24.980-0700",
     "assignee": "Eamonn McHugh-Roohr",
     "summary": "[Centene][V7] Item 58 — Excessive SABA: Add GINA 2023 as Second Member Comm Reference",
     "comment": {
@@ -394,8 +407,8 @@ const tickets = [
   {
     "key": "CLIC-510",
     "type": "Story",
-    "status": "QA Failed",
-    "updated": "2026-06-18T08:06:09.958-0700",
+    "status": "In Progress",
+    "updated": "2026-06-18T12:17:36.831-0700",
     "assignee": "Luqmaan Baiyat",
     "summary": "[Centene][V7] ADD MED: Statin (HIV + ASCVD) — Add Missing Spanish Member Communication",
     "comment": {
@@ -447,13 +460,13 @@ const tickets = [
     "key": "CLIC-528",
     "type": "Bug",
     "status": "TECH REVIEW",
-    "updated": "2026-06-18T08:06:07.775-0700",
+    "updated": "2026-06-18T12:26:17.453-0700",
     "assignee": "Richard Huang",
     "summary": "Patient DTP: Blank To Do List in UAT Environment",
     "comment": {
-      "author": "Wes Benzon",
+      "author": "Nischal Sodemba",
       "date": "2026-06-18",
-      "text": "@Radha Patel hold off on proceeding until we hear back?"
+      "text": "@Paul Phelps is waiting for confirmation with Centene that we can display all MAPs in the Make Reports tab.@Sam Boley While we…"
     }
   }
 ];
