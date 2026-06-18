@@ -98,7 +98,7 @@
       <div class="page-meta">
         <a href="https://akesoteam.atlassian.net/browse/CLIC-455" target="_blank">View in Jira ↗</a>
         &nbsp;·&nbsp; 24 tickets &nbsp;·&nbsp; Assignee: Wes Benzon &nbsp;·&nbsp;
-        Updated: 17 Jun 2026, 11:20 PM UTC
+        Updated: 18 Jun 2026, 2:28 PM UTC
       </div>
     </div>
     <div class="legend">
@@ -160,14 +160,14 @@ const tickets = [
   {
     "key": "CLIC-348",
     "type": "Bug",
-    "status": "QA",
-    "updated": "2026-06-17T14:39:23.023-0700",
+    "status": "QA Failed",
+    "updated": "2026-06-17T17:27:29.254-0700",
     "assignee": "Eamonn McHugh-Roohr",
     "summary": "Patient DTP Spanish [requirements issue] -  ADD MED: ICS (asthma with LABA)",
     "comment": {
-      "author": "John Peabody",
+      "author": "Maria Nasonoff",
       "date": "2026-06-17",
-      "text": "@Eamonn McHugh-Roohr the display name in airtable should match the title in the doc"
+      "text": "@Eamonn McHugh-Roohr Previous validation in preview were for CT_ASTHMA_3 that TSGR, CT_ASTHMA_10 that is Searchable/Smart…"
     }
   },
   {
@@ -199,14 +199,14 @@ const tickets = [
   {
     "key": "CLIC-384",
     "type": "Bug",
-    "status": "QA",
-    "updated": "2026-06-17T14:39:11.634-0700",
+    "status": "PO REVIEW",
+    "updated": "2026-06-17T21:30:34.887-0700",
     "assignee": "Eamonn McHugh-Roohr",
     "summary": "Patient DTP Spanish [requirements issue] - Excessive use of SABA with suboptimal asthma control (SAC)",
     "comment": {
       "author": "Maria Nasonoff",
       "date": "2026-06-17",
-      "text": "QA Status: Passed V7 Line 58DTP: ESCALATE TX: excessive use of SABA with suboptimal asthma control (SAC)Note: Full DTP Regression…"
+      "text": "QA Status: Passed V7 Line 58Environment: DevTest patient: db2e8644-84f5-4a8b-99d2-cceb8a808284DTP: ESCALATE TX: excessive use of…"
     }
   },
   {
@@ -264,40 +264,40 @@ const tickets = [
   {
     "key": "CLIC-448",
     "type": "Story",
-    "status": "QA",
-    "updated": "2026-06-17T14:39:16.883-0700",
+    "status": "QA Failed",
+    "updated": "2026-06-17T19:34:53.152-0700",
     "assignee": "Eamonn McHugh-Roohr",
     "summary": "[Centene][V7] Item 23 — Pneumococcal Vaccination: Age 65→50, PCV21, CDC 2025 References",
     "comment": {
-      "author": "Eamonn McHugh-Roohr",
-      "date": "2026-06-16",
-      "text": "It’s 50 in V7 fwiw"
+      "author": "Mikhail Aronov",
+      "date": "2026-06-17",
+      "text": "@Eamonn McHugh-Roohr Found a few differences noted below:V7 DocumentGenerated Provider TAR Changed Needed:Not previously received…"
     }
   },
   {
     "key": "CLIC-449",
     "type": "Story",
-    "status": "QA",
-    "updated": "2026-06-17T14:39:14.036-0700",
+    "status": "QA Failed",
+    "updated": "2026-06-18T06:24:39.648-0700",
     "assignee": "Eamonn McHugh-Roohr",
     "summary": "[Centene][V7] Item 58 — Excessive SABA: Add GINA 2023 as Second Member Comm Reference",
     "comment": {
-      "author": "Maria Nasonoff",
-      "date": "2026-06-17",
-      "text": "QA Status: Passed V7 Line 58DTP: CT_ASTHMA_2ESCALATE TX: excessive use of SABA with suboptimal asthma control (SAC)Verification…"
+      "author": "Eamonn McHugh-Roohr",
+      "date": "2026-06-18",
+      "text": "@Maria Nasonoff They’re using the same Jinja function (brand_name_dose_qty_dos_refilldate) so I think that this is actually an…"
     }
   },
   {
     "key": "CLIC-450",
     "type": "Story",
     "status": "PO REVIEW",
-    "updated": "2026-06-17T12:39:10.766-0700",
+    "updated": "2026-06-17T16:24:24.650-0700",
     "assignee": "Eamonn McHugh-Roohr",
     "summary": "[Centene][V7] Item 77 — Therapeutic Alternative: Remove Coverage Gap Language from Provider Fax",
     "comment": {
       "author": "Maria Nasonoff",
       "date": "2026-06-17",
-      "text": "@Eamonn McHugh-Roohr Garry confirmed we can leave indent as is, I change status to Passed and we can move forward with this ticket"
+      "text": "QA Status: Passed Environment: DevTest patient: db2e8644-84f5-4a8b-99d2-cceb8a808284DTP: PLAN: cost ineffective agent…"
     }
   },
   {
@@ -368,14 +368,14 @@ const tickets = [
   {
     "key": "CLIC-497",
     "type": "Story",
-    "status": "QA in Progress",
-    "updated": "2026-06-17T15:55:16.615-0700",
+    "status": "PO REVIEW",
+    "updated": "2026-06-17T16:31:31.359-0700",
     "assignee": "Eamonn McHugh-Roohr",
     "summary": "Centene | PCR-076 DTP Statement Updates - Colchicine (Gout) Member Statements & COPD Spanish Title Bolding (v7)",
     "comment": {
-      "author": "Maria Nasonoff",
+      "author": "Mikhail Aronov",
       "date": "2026-06-17",
-      "text": "QA Status: Passed V7 Line 20DTP: ESCALATE TX: chronic colchicine (gout)Verification Scenarios:Provider Full provider content…"
+      "text": "@Eamonn McHugh-Roohr Test SummaryTest Data:Patient Id: 0d2b1b84-5477-4c7f-ae2a-e665e238dae4Environment: DTP: ESCALATE TX: chronic…"
     }
   },
   {
@@ -447,13 +447,13 @@ const tickets = [
     "key": "CLIC-528",
     "type": "Bug",
     "status": "TECH REVIEW",
-    "updated": "2026-06-17T15:52:11.195-0700",
+    "updated": "2026-06-18T06:55:17.251-0700",
     "assignee": "Richard Huang",
     "summary": "Patient DTP: Blank To Do List in UAT Environment",
     "comment": {
-      "author": "Nischal Sodemba",
-      "date": "2026-06-17",
-      "text": "@Shane Spencer I think we should revisit this requirement to include every MAP in the TDL letter by default with Centene@Radha…"
+      "author": "Wes Benzon",
+      "date": "2026-06-18",
+      "text": "@Radha Patel hold off on proceeding until we hear back?"
     }
   }
 ];
